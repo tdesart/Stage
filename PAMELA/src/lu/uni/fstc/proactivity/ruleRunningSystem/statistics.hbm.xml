@@ -1,0 +1,43 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC 
+"-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping package="lu.uni.fstc.proactivity.ruleRunningSystem">
+
+	<class name="Statistics" table="Stats">
+
+		<id name="id" type="long" column="Stat_id" >
+			<generator class="increment" />
+		</id>
+
+		<property name="execution_id"			column="Parent_Execution" />
+		<property name="startDate"				column="Start_Date" />
+		<property name="endDate"				column="End_Date" />
+		<property name="executionTime"			column="Execution_Time" />
+
+		<property name="queueSizeAtEnd"			column="Queue_Size_After" />
+		<property name="nRulesExecuted"			column="Total_Executed" />
+		<property name="nRulesExecuted_MTA"		column="MTA_Executed" />
+		<property name="nRulesExecuted_SCN"		column="SCN_Executed" />
+		<property name="nRulesExecuted_MSG"		column="MSG_Executed" />
+		<property name="nRulesActivated"		column="Total_Activated" />
+		<property name="nRulesActivated_MTA"	column="MTA_Activated" />
+		<property name="nRulesActivated_SCN"	column="SCN_Activated" />
+		<property name="nRulesActivated_MSG"	column="MSG_Activated" />
+		<property name="nRulesActed"			column="Total_Acted" />
+		<property name="nRulesActed_MTA"		column="MTA_Acted" />
+		<property name="nRulesActed_SCN"		column="SCN_Acted" />
+		<property name="nRulesActed_MSG"		column="MSG_Acted" />
+
+		<joined-subclass name="StatisticsOnExecution" table="Stats_Execution">
+			<key column="Stat_id" />
+			<property name="nIterations"		column="Iterations" />
+			<property name="sysParamF"			column="Sys_F" />
+			<property name="sysParamN"			column="Sys_N" />
+			<property name="sysParamP"			column="Sys_P" />
+		</joined-subclass>
+
+	</class>
+
+</hibernate-mapping>

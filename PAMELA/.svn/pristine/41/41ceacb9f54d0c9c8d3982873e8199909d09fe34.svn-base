@@ -1,0 +1,21 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC 
+"-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping package="lu.uni.fstc.proactivity.messaging.server">
+
+	<class name="UserMessage" table="Messages">
+		<id name="id" type="long" column="msg_id" >
+			<generator class="increment" />
+		</id>
+
+		<property name="user_id"    column="userid"     not-null="true" index="idx_userid" />
+		<property name="subject"    column="subject"    not-null="true"/>
+		<property name="body"       column="body"       not-null="true" length="1000" />
+		<property name="sent"       column="sent"       not-null="true"/>
+		<property name="read"       column="isRead"     not-null="true"/>
+		<property name="importance" column="importance" not-null="true"/>
+	</class>
+
+</hibernate-mapping>

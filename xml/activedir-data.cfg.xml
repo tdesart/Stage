@@ -1,0 +1,12 @@
+<moodle-configuration>
+	<connection name = "Test server-active directory native data">
+		<host>moodle-test.uni.lux</host>
+		<protocol>https</protocol>
+		<mail_host>moodle-test.uni.lux</mail_host>
+		<mail_script>/message/PAS_send_mail.php</mail_script>
+		<port>3306</port>
+		<schema>active_dir_system</schema>
+		<user>root</user>
+		<pass>moodle</pass>
+	</connection>
+</moodle-configuration>

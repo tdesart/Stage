@@ -1,0 +1,9 @@
+<pam-configuration>
+	<connection name = "PAM Test server">
+		<host>moodle-test.uni.lux</host>
+		<port>3306</port>
+		<schema>PAM</schema>
+		<user>root</user>
+		<pass>moodle</pass>
+	</connection>
+</pam-configuration>

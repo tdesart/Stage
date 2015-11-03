@@ -1,0 +1,219 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<class-diagram version="1.1.6" icons="true" automaticImage="PNG" always-add-relationships="true" generalizations="true" 
+  realizations="true" associations="true" dependencies="true" nesting-relationships="true">  
+  <class id="1" language="java" name="lu.uni.fstc.proactivity.rules.AbstractRule" project="PAMELA" 
+    file="/PAMELA/src/lu/uni/fstc/proactivity/rules/AbstractRule.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position x="786" y="335" width="-1" height="-1"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" accessors="true" 
+      visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="2" language="java" name="lu.uni.fstc.proactivity.rules.moodleCoPs.AbstractRuleCops" project="PAMELA" 
+    file="/PAMELA/src/lu/uni/fstc/proactivity/rules/moodleCoPs/AbstractRuleCops.java" binary="false" 
+    corner="BOTTOM_RIGHT">    
+    <position x="1065" y="784" width="-1" height="-1"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" accessors="true" 
+      visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="3" language="java" name="lu.uni.fstc.proactivity.rules.moodleAssignments.AbstractRuleMoodle" 
+    project="PAMELA" file="/PAMELA/src/lu/uni/fstc/proactivity/rules/moodleAssignments/AbstractRuleMoodle.java" 
+    binary="false" corner="BOTTOM_RIGHT">    
+    <position x="461" y="792" width="-1" height="-1"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" accessors="true" 
+      visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="4" language="java" name="lu.uni.fstc.proactivity.rules.eteach.AbstractRuleEteach" project="eteachPatterns" 
+    file="/eteachPatterns/src/lu/uni/fstc/proactivity/rules/eteach/AbstractRuleEteach.java" binary="false" 
+    corner="BOTTOM_RIGHT">    
+    <position x="1499" y="802" width="-1" height="-1"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" accessors="true" 
+      visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="5" language="java" name="lu.uni.fstc.proactivity.rules.Importance" project="PAMELA" 
+    file="/PAMELA/src/lu/uni/fstc/proactivity/rules/Importance.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position x="238" y="1316" width="-1" height="-1"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" accessors="true" 
+      visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="6" language="java" name="lu.uni.fstc.proactivity.rules.RuleMessageMoodle" project="PAMELA" 
+    file="/PAMELA/src/lu/uni/fstc/proactivity/rules/RuleMessageMoodle.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position x="-46" y="1256" width="-1" height="-1"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" accessors="true" 
+      visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="7" language="java" name="lu.uni.fstc.proactivity.rules.moodleAssignments.MTA001m" project="PAMELA" 
+    file="/PAMELA/src/lu/uni/fstc/proactivity/rules/moodleAssignments/MTA001m.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position x="566" y="1061" width="-1" height="-1"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" accessors="true" 
+      visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="false" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="8" language="java" name="lu.uni.fstc.proactivity.rules.eteach.MTA_context_monitor" project="eteachPatterns" 
+    file="/eteachPatterns/src/lu/uni/fstc/proactivity/rules/eteach/MTA_context_monitor.java" binary="false" 
+    corner="BOTTOM_RIGHT">    
+    <position x="1499" y="1129" width="-1" height="-1"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" accessors="true" 
+      visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="false" package="true" protected="true" private="true" static="false"/>    
+    </display>  
+  </class>  
+  <class id="9" language="java" name="lu.uni.fstc.proactivity.rules.moodleCoPs.M202" project="PAMELA" 
+    file="/PAMELA/src/lu/uni/fstc/proactivity/rules/moodleCoPs/M202.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position x="1149" y="1129" width="-1" height="-1"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" accessors="true" 
+      visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="false" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="10" language="java" name="lu.uni.fstc.proactivity.rules.moodleAssignments.RMD003" project="PAMELA" 
+    file="/PAMELA/src/lu/uni/fstc/proactivity/rules/moodleAssignments/RMD003.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position x="350" y="1069" width="-1" height="-1"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" accessors="true" 
+      visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="false" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <enumeration id="11" language="java" name="lu.uni.fstc.proactivity.rules.RuleType" project="PAMELA" 
+    file="/PAMELA/src/lu/uni/fstc/proactivity/rules/RuleType.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position x="786" y="1208" width="-1" height="-1"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" accessors="true" 
+      visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </enumeration>  
+  <class id="12" language="java" name="lu.uni.fstc.proactivity.rules.AbstractRuleMessage" project="PAMELA" 
+    file="/PAMELA/src/lu/uni/fstc/proactivity/rules/AbstractRuleMessage.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position x="-46" y="854" width="-1" height="-1"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" accessors="true" 
+      visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <interface id="13" language="java" name="lu.uni.fstc.proactivity.rules.IRuleMessage" project="PAMELA" 
+    file="/PAMELA/src/lu/uni/fstc/proactivity/rules/IRuleMessage.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position x="-45" y="361" width="-1" height="-1"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" accessors="true" 
+      visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </interface>  
+  <dependency id="14">    
+    <end type="SOURCE" refId="9"/>    
+    <end type="TARGET" refId="11"/>  
+  </dependency>  
+  <generalization id="15">    
+    <end type="SOURCE" refId="4"/>    
+    <end type="TARGET" refId="1"/>  
+  </generalization>  
+  <generalization id="16">    
+    <end type="SOURCE" refId="6"/>    
+    <end type="TARGET" refId="12"/>  
+  </generalization>  
+  <generalization id="17">    
+    <end type="SOURCE" refId="9"/>    
+    <end type="TARGET" refId="2"/>  
+  </generalization>  
+  <dependency id="18">    
+    <bendpoint x="1269" y="1312"/>    
+    <bendpoint x="1069" y="1312"/>    
+    <end type="SOURCE" refId="8"/>    
+    <end type="TARGET" refId="11"/>  
+  </dependency>  
+  <dependency id="19">    
+    <end type="SOURCE" refId="10"/>    
+    <end type="TARGET" refId="5"/>  
+  </dependency>  
+  <realization id="20">    
+    <end type="SOURCE" refId="12"/>    
+    <end type="TARGET" refId="13"/>  
+  </realization>  
+  <dependency id="21">    
+    <end type="SOURCE" refId="6"/>    
+    <end type="TARGET" refId="5"/>  
+  </dependency>  
+  <generalization id="22">    
+    <end type="SOURCE" refId="2"/>    
+    <end type="TARGET" refId="1"/>  
+  </generalization>  
+  <dependency id="23">    
+    <bendpoint x="225" y="1199"/>    
+    <end type="SOURCE" refId="12"/>    
+    <end type="TARGET" refId="11"/>  
+  </dependency>  
+  <dependency id="24">    
+    <end type="SOURCE" refId="10"/>    
+    <end type="TARGET" refId="6"/>  
+  </dependency>  
+  <generalization id="25">    
+    <end type="SOURCE" refId="12"/>    
+    <end type="TARGET" refId="1"/>  
+  </generalization>  
+  <dependency id="26">    
+    <bendpoint x="480" y="1186"/>    
+    <end type="SOURCE" refId="10"/>    
+    <end type="TARGET" refId="11"/>  
+  </dependency>  
+  <generalization id="27">    
+    <end type="SOURCE" refId="7"/>    
+    <end type="TARGET" refId="3"/>  
+  </generalization>  
+  <generalization id="28">    
+    <end type="SOURCE" refId="3"/>    
+    <end type="TARGET" refId="1"/>  
+  </generalization>  
+  <generalization id="29">    
+    <end type="SOURCE" refId="10"/>    
+    <end type="TARGET" refId="3"/>  
+  </generalization>  
+  <dependency id="30">    
+    <end type="SOURCE" refId="12"/>    
+    <end type="TARGET" refId="5"/>  
+  </dependency>  
+  <dependency id="31">    
+    <end type="SOURCE" refId="7"/>    
+    <end type="TARGET" refId="11"/>  
+  </dependency>  
+  <association id="32">    
+    <end type="SOURCE" refId="1" navigable="false">      
+      <attribute id="33" name="type"/>      
+      <multiplicity id="34" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="11" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <generalization id="35">    
+    <end type="SOURCE" refId="8"/>    
+    <end type="TARGET" refId="4"/>  
+  </generalization>  
+  <classifier-display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+    accessors="true" visibility="true">    
+    <attributes public="true" package="true" protected="true" private="true" static="true"/>    
+    <operations public="true" package="true" protected="true" private="true" static="true"/>  
+  </classifier-display>  
+  <association-display labels="true" multiplicity="true"/>
+</class-diagram>

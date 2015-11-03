@@ -1,0 +1,31 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC 
+"-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+
+<!-- <hibernate-mapping package="rules"> -->
+
+<hibernate-mapping>
+	<class name="rules.AbstractRule" table="Rules">
+
+		<id name="id" type="long"           column="rule_id" >
+			<generator class="increment" />
+		</id>
+
+		<joined-subclass name="rules.eteach.MTA_context_monitor" table="Rules_MTA_Context">
+			<key                            column="rule_id" />
+			<property name="last_event_id"  column="last_event_id" />
+		</joined-subclass>
+
+		<joined-subclass name="rules.eteach.MTA_history_monitor" table="Rules_MTA_History">
+			<key                            column="rule_id" />
+			<property name="last_pattern_id"  column="last_pattern_id" />
+			<property name="last_EOL_id"  	column="last_EOL_id" />
+		</joined-subclass>
+
+		<joined-subclass name="rules.eteach.MTA_model_monitor" table="Rules_MTA_Model">
+			<key                            column="rule_id" />
+		</joined-subclass>
+
+	</class>
+</hibernate-mapping>

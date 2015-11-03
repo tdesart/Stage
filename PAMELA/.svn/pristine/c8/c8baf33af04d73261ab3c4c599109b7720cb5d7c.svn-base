@@ -1,0 +1,345 @@
+package lu.uni.fstc.proactivity.rules.moodleCoPs;
+
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.GregorianCalendar;
+
+import org.jfree.data.category.DefaultCategoryDataset;
+import org.jfree.data.general.DefaultPieDataset;
+//import org.jfree.data.xy.XYSeries;
+//import org.jfree.data.xy.XYSeriesCollection;
+
+
+import lu.uni.fstc.proactivity.pdf.CoursePdfBuilder;
+import lu.uni.fstc.proactivity.pdf.PdfBuilder;
+import lu.uni.fstc.proactivity.rules.RuleType;
+import lu.uni.fstc.proactivity.utils.Global;
+
+/**
+ * @author remus.dobrican
+ * 
+ */
+public class M201 extends AbstractRuleCops {
+
+//	private long pdf_context_ID, pdf_resource_ID, course_modules_ID, course_section_ID, grouping_ID;
+//	private String path;
+	private PdfBuilder coursePdfBuilder; 
+	private long course_ID, currentTime;//, group_ID, activityLevel;
+	private String groupType;
+	private ResultSet courseYesNoAnswers;
+	private DefaultPieDataset dataSetCourseGroups;
+	private DefaultCategoryDataset dataSetCourseYesNoStudents;//, groupNewLeaveStudents;
+//	private ArrayList<PdfBuilder> groupPdfBuilder;
+//	private XYSeriesCollection groupActivity;
+	//private XYSeries series3;
+	private int groupNumber, thisWeek, last_week_executed, weeks;
+	/**
+	 * @return the weeks
+	 */
+	public int getWeeks() {
+		return weeks;
+	}
+
+	/**
+	 * @param weeks the weeks to set
+	 */
+	public void setWeeks(int weeks) {
+		this.weeks = weeks;
+	}
+
+	private GregorianCalendar cal;
+//	private final int run_hour = 10, run_day = GregorianCalendar.MONDAY; 
+	private final int run_hour = 3, run_day = GregorianCalendar.FRIDAY; 
+
+	/**
+	 * Default constructor, mandatory for Hibernate to build object
+	 */
+	private M201() {
+		setType(RuleType.META);
+	}
+
+	/**
+	 * @param course_ID
+	 * @param last_week_executed 
+	 * @param weeks 
+	 */
+	public M201(final long course_ID, final int last_week_executed, final int weeks) {
+		this();
+		this.course_ID = course_ID;
+		setLast_week_executed(last_week_executed);
+		this.weeks = weeks;
+	}
+	
+	/**
+	 * @see lu.uni.fstc.proactivity.rules.AbstractRule#dataAcquisition()
+	 */
+	@Override
+	protected void dataAcquisition() {
+		currentTime = System.currentTimeMillis();
+		//groupPdfBuilder = new ArrayList<PdfBuilder>();
+	}
+	
+	/**
+	 * @see lu.uni.fstc.proactivity.rules.AbstractRule#activationGuards()
+	 */
+	@Override
+	protected boolean activationGuards() {
+		cal = new GregorianCalendar(); // Initialised by default with the current time. Perfect! Just what I need.
+		thisWeek = cal.get(GregorianCalendar.WEEK_OF_YEAR);
+
+		if (thisWeek != this.last_week_executed
+				&& cal.get(GregorianCalendar.DAY_OF_WEEK) == run_day
+				&& cal.get(GregorianCalendar.HOUR_OF_DAY) == run_hour) {
+			return true;
+		}
+		return false;
+	}
+	
+	/**
+	 * @see lu.uni.fstc.proactivity.rules.AbstractRule#conditions()
+	 */
+	@Override
+	protected boolean conditions() {
+		return true;
+	}
+
+	/**
+	 * @see lu.uni.fstc.proactivity.rules.AbstractRule#actions()
+	 */
+	@Override
+	protected void actions() {
+		
+//		try {
+//			if (!MySQLOperations.startTransaction(engine.db.getConn()))
+//				return;
+		
+			Global.logger.finer(this.toString());
+	
+			// we get the info to their corresponding dataSets
+			initializeDataSets1();
+			// then we build the Pdf
+			coursePdfBuilder = new CoursePdfBuilder(dataSetCourseGroups, dataSetCourseYesNoStudents);
+			coursePdfBuilder.buildDocument();
+			
+			/*
+			String groupName = null;
+			try {
+				ResultSet groups = engine.dbPam.getAllGroups();
+				groups.beforeFirst();
+				while (!groups.isClosed() && groups.next()) {
+					groupName = groups.getString("group_name");
+	
+					initializeDataSets2(groupName);
+					groupPdfBuilder.add(new GroupPdfBuilder(groupActivity, groupNewLeaveStudents, groupName));
+					
+					// we register the PdfToMoodle
+					creatingThePdf(groupName, (GroupPdfBuilder) groupPdfBuilder.get(groupPdfBuilder.size()-1));
+				}
+				
+				// only once for the last pdf (for testing purposes)
+				// creatingThePdf(groupName, (GroupPdfBuilder) groupPdfBuilder.get(groupPdfBuilder.size()-1));
+				groups.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+			*/
+			
+//			MySQLOperations.commit(engine.db.getConn());
+/*/		}
+		catch (final Exception e){
+			e.printStackTrace();
+			MySQLOperations.rollback(engine.db.getConn());
+			Global.logger.severe("Error in the transaction: rollback executed!");
+		}
+/**/
+	}
+
+	/**
+	 * @see lu.uni.fstc.proactivity.rules.AbstractRule#rulesGeneration()
+	 */
+	@Override
+	protected boolean rulesGeneration() {
+		Global.logger.finer(this.toString());
+		
+		if (getActivated()) {
+			createRule(new M201(course_ID, thisWeek, weeks+1));
+			Global.logger.finer("Creating new M201  [" + thisWeek + "] ");
+		}
+		else
+			createRule(this);
+		return true;
+	}
+
+	@Override
+	public String toString() {
+		return "M201 - Creating statistics for the users";
+	}
+
+	/**
+	 * Initialises the dataSets according to the data in the database
+	 */
+	private void initializeDataSets1() {		
+		/**
+		 * New data is written to the pieChart each time a pieChart is created
+		 * 	-- contains the current number of groups in the Course 'cops'
+		 */
+		courseYesNoAnswers = dataEngine.getAllCurrentGroupsAndTheirType();
+		dataSetCourseGroups = new DefaultPieDataset();
+
+		try {
+			this.courseYesNoAnswers.beforeFirst();
+			while (!this.courseYesNoAnswers.isClosed() && this.courseYesNoAnswers.next()) {
+				groupType = this.courseYesNoAnswers.getString("type");
+				groupNumber = this.courseYesNoAnswers.getInt("number");
+
+				if(groupType.equals("study"))
+					dataSetCourseGroups.setValue("Study program-based groups = " + groupNumber, groupNumber);
+				else if(groupType.equals("city"))
+					dataSetCourseGroups.setValue("Country-based groups = " + groupNumber, groupNumber);
+				else if(groupType.equals("country"))
+					dataSetCourseGroups.setValue("City-based groups = " + groupNumber, groupNumber);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+
+		/**
+		 * New data is added to the DualAxisChart each time the DualAxisChart  is created
+		 * 	-- it adds the new numbers of 'YES'/'NO' answers that were registered during a week
+		 * 	-- after a month (4 weeks new data is generated) ??
+		 */
+		dataSetCourseYesNoStudents = new DefaultCategoryDataset();
+		long begin_time = (currentTime/1000 - 518400 * (weeks+1)), end_time = begin_time + 518400;
+		for (long i = 1; i < 10 ; i++){
+			if(i == weeks) {
+				dataSetCourseYesNoStudents.setValue(dataEngine.getNumberOfAnswers("Ok", begin_time, end_time), "Ok", "now");
+				dataSetCourseYesNoStudents.setValue(dataEngine.getNumberOfAnswers("No, thanks!", begin_time, end_time), "No, thanks!", "now");
+			}
+			else {
+				dataSetCourseYesNoStudents.setValue(dataEngine.getNumberOfAnswers("Ok", begin_time, end_time), "Ok", ""+(thisWeek+i-1));
+				dataSetCourseYesNoStudents.setValue(dataEngine.getNumberOfAnswers("No, thanks!", begin_time, end_time), "No, thanks!", ""+(thisWeek+i-1));
+			}
+			begin_time += 518400 * i;
+			end_time += begin_time + 518400; 
+		}
+	}
+	
+/** ------   unused     START          ------
+	/**
+	 * Initialises the dataSets according to the data in the database
+	 * /
+	private void initializeDataSets2(final String groupName) {
+		group_ID = engine.db.getGroupID(groupName);
+		/**
+		 * New data is written to the xyChart each time a xyChart is created
+		 * 	-- contains the current number of groups in the Course 'cops'
+		 * /
+		groupActivity = new XYSeriesCollection();
+
+		/**
+		 * New data is added to the Timeline each time the Timeline is created
+		 * 	-- it adds the new numbers of 'YES'/'NO' answers that were registered during a week
+		 * 	-- after a month (4 weeks new data is generated) ??
+		 * /		
+		groupNewLeaveStudents = new DefaultCategoryDataset();
+        final XYSeries series3 = new XYSeries("Activity");
+        long begin_time = (currentTime/1000 - 518400 * (weeks+1)), end_time = begin_time + 518400;
+		for (long i = 1; i < 10 ; i++) {
+			activityLevel = engine.db.getActivityLevel(groupName, begin_time , end_time);
+			series3.add(thisWeek+i-1, activityLevel);
+			if(i == weeks) {
+				groupNewLeaveStudents.setValue(engine.dbPam.getMembersWhoJoined(group_ID, begin_time, end_time), "New Students", "now");
+				groupNewLeaveStudents.setValue(engine.dbPam.getMembersWhoLeave(group_ID, begin_time, end_time), "Students that left the group", "now");
+			}
+			else {
+				groupNewLeaveStudents.setValue(engine.dbPam.getMembersWhoJoined(group_ID, begin_time, end_time), "New Students", ""+(thisWeek+i-1));
+				groupNewLeaveStudents.setValue(engine.dbPam.getMembersWhoLeave(group_ID, begin_time, end_time), "Students that left the group", ""+(thisWeek+i-1));
+			}
+			
+			begin_time += 518400 * i;
+			end_time += begin_time + 518400; 
+		}
+		groupActivity.addSeries(series3);
+		groupActivity.addSeries(series3);
+	}
+
+	/**
+	 * Builds and registers the pdf to Moodle
+	 * /
+	private void creatingThePdf(final String groupName, final GroupPdfBuilder pdfBuilder) {
+		/*
+		// uploading the drafts
+		// inserting "Statistics.pdf"
+		engine.db.insertIntoFiles("draft", pdfBuilder.getContenthashFile(),
+				pdfBuilder.getPathnamehashFile(), 3,
+				pdfBuilder.getGroupName() + ".pdf", pdfBuilder.getFileSize());
+		// inserting "."
+		engine.db.insertIntoFiles("draftEmpty", pdfBuilder.getContenthashString(),
+				pdfBuilder.getPathnamehashString(), 3, ".",
+				pdfBuilder.getStringSize());
+		/* * /
+
+		long grouping_ID = engine.db.getIDFromGroupingName(groupName);
+		engine.db.insertIntoCourseModules(13, course_ID, grouping_ID);
+		long course_modules_ID = engine.db.getLastId(); // gets the last inserted course_modules_id
+
+		engine.db.insertIntoResources(pdfBuilder.getGroupName(), course_ID, pdfBuilder.getPdfDescription(), pdfBuilder.getDisplayOptions());
+		long pdf_resource_ID = engine.db.getLastId(); // gets the last inserted resource_id
+		
+		// context_id
+		engine.db.insertIntoContextTable("pdf", course_modules_ID);
+		long pdf_context_ID = engine.db.getContextID(course_modules_ID, 4);
+		String path = engine.db.getContextPath(course_ID, 3) + "/" + pdf_context_ID;
+		engine.db.updateContext(path, pdf_context_ID);
+		
+		pdfBuilder.buildHashs("/" + pdf_context_ID
+				+ "/mod_resource/content/0/.", "/" + pdf_context_ID
+				+ "/mod_resource/content/0/"+ pdfBuilder.getGroupName() +".pdf");
+
+		// inserting "Statistics.pdf"
+		engine.db.insertIntoFiles("pdf", pdfBuilder.getContenthashFile(),
+				pdfBuilder.getPathnamehashFile(), pdf_context_ID,
+				pdfBuilder.getGroupName() + ".pdf", pdfBuilder.getFileSize());
+		// inserting "."
+		engine.db.insertIntoFiles("empty", pdfBuilder.getContenthashString(),
+				pdfBuilder.getPathnamehashString(), pdf_context_ID, ".",
+				pdfBuilder.getStringSize());
+
+		long course_section_ID = engine.db.getCourseSectionID(course_ID, 0);
+		engine.db.updateCourseModule(pdf_resource_ID, course_section_ID, course_modules_ID);
+		engine.db.updateCourseSection("," + course_modules_ID, course_section_ID);
+
+		String modinfo = engine.db.getCourseModinfo(course_ID);
+		ModInfo pdfModInfo = new ModInfo(modinfo, String.valueOf(pdf_resource_ID), 14, String.valueOf(course_modules_ID), "resource", String.valueOf(0), String.valueOf(grouping_ID), pdfBuilder.getGroupName());
+		engine.db.updateCourseModinfo(pdfModInfo.getModinfo(), course_ID);
+	}
+/** ------   unused    END           ------
+
+	/**
+	 * @return the course_ID
+	 */
+	public long getCourse_ID() {
+		return course_ID;
+	}
+
+	/**
+	 * @param course_ID the course_ID to set
+	 */
+	public void setCourse_ID(final long course_ID) {
+		this.course_ID = course_ID;
+	}
+
+	/**
+	 * @return the last_week_executed
+	 */
+	public int getLast_week_executed() {
+		return last_week_executed;
+	}
+
+	/**
+	 * @param last_week_executed the last_week_executed to set
+	 */
+	public void setLast_week_executed(final int last_week_executed) {
+		this.last_week_executed = last_week_executed;
+	}
+}

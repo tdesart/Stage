@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<classpath>
+	<classpathentry kind="src" path="src">
+		<attributes>
+			<attribute name="org.eclipse.jdt.launching.CLASSPATH_ATTR_LIBRARY_PATH_ENTRY" value="Global/src"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
+	<classpathentry kind="lib" path="C:/Users/sandro.reis/workspace/hibernate-distribution-3.6.8.Final/hibernate3.jar" sourcepath="/hibernate-distribution-3.6.8.Final"/>
+	<classpathentry kind="lib" path="C:/Users/sandro.reis/workspace/FindBugs 2.0.2/annotations.jar"/>
+	<classpathentry kind="lib" path="C:/Users/sandro.reis/workspace/mysql-connector-java-5.1.18/mysql-connector-java-5.1.18-bin.jar"/>
+	<classpathentry kind="lib" path="C:/Users/sandro.reis/workspace/hibernate-distribution-3.6.8.Final/lib/required/antlr-2.7.6.jar"/>
+	<classpathentry kind="lib" path="C:/Users/sandro.reis/workspace/hibernate-distribution-3.6.8.Final/lib/required/commons-collections-3.1.jar"/>
+	<classpathentry kind="lib" path="C:/Users/sandro.reis/workspace/hibernate-distribution-3.6.8.Final/lib/required/dom4j-1.6.1.jar"/>
+	<classpathentry kind="lib" path="C:/Users/sandro.reis/workspace/hibernate-distribution-3.6.8.Final/lib/required/javassist-3.12.0.GA.jar"/>
+	<classpathentry kind="lib" path="C:/Users/sandro.reis/workspace/hibernate-distribution-3.6.8.Final/lib/required/jta-1.1.jar"/>
+	<classpathentry kind="lib" path="C:/Users/sandro.reis/workspace/hibernate-distribution-3.6.8.Final/lib/jpa/hibernate-jpa-2.0-api-1.0.1.Final.jar"/>
+	<classpathentry kind="lib" path="C:/Users/sandro.reis/workspace/slf4j-1.6.4/slf4j-api-1.6.4.jar"/>
+	<classpathentry kind="lib" path="C:/Users/sandro.reis/workspace/Global/lib/itextpdf-5.3.5.jar"/>
+	<classpathentry kind="lib" path="C:/Users/sandro.reis/workspace/Global/lib/jcommon-1.0.16.jar"/>
+	<classpathentry kind="lib" path="C:/Users/sandro.reis/workspace/Global/lib/jfreechart-1.0.13.jar"/>
+	<classpathentry kind="output" path="bin"/>
+</classpath>

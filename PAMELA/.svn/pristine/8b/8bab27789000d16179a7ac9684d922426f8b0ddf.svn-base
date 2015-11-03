@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<class-diagram version="1.1.6" icons="true" automaticImage="PNG" always-add-relationships="true" generalizations="true" 
+  realizations="true" associations="true" dependencies="true" nesting-relationships="true">  
+  <class id="1" language="java" name="lu.uni.fstc.proactivity.utils.Global" project="Global" 
+    file="/Global/src/lu/uni/fstc/proactivity/utils/Global.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position x="213" y="488" width="-1" height="-1"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" accessors="true" 
+      visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="2" language="java" name="lu.uni.fstc.proactivity.log.PlainSingleLineFormatter" project="Global" 
+    file="/Global/src/lu/uni/fstc/proactivity/log/PlainSingleLineFormatter.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position x="1337" y="488" width="-1" height="-1"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" accessors="true" 
+      visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="3" language="java" name="lu.uni.fstc.proactivity.log.SingleLineFormatter" project="Global" 
+    file="/Global/src/lu/uni/fstc/proactivity/log/SingleLineFormatter.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position x="1121" y="488" width="-1" height="-1"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" accessors="true" 
+      visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="4" language="java" name="lu.uni.fstc.proactivity.log.SingleLineWithSignatureFormatter" project="Global" 
+    file="/Global/src/lu/uni/fstc/proactivity/log/SingleLineWithSignatureFormatter.java" binary="false" 
+    corner="BOTTOM_RIGHT">    
+    <position x="1573" y="488" width="-1" height="-1"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" accessors="true" 
+      visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="5" language="java" name="java.util.logging.Formatter" project="Global" 
+    file="C:/Program Files/Java/jdk1.6.0_29/jre/lib/rt.jar" binary="true" corner="BOTTOM_RIGHT">    
+    <position x="1337" y="135" width="-1" height="-1"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" accessors="true" 
+      visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="6" language="java" name="lu.uni.fstc.proactivity.log.AbstractLogger" project="Global" 
+    file="/Global/src/lu/uni/fstc/proactivity/log/AbstractLogger.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position x="864" y="135" width="-1" height="-1"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" accessors="true" 
+      visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="7" language="java" name="lu.uni.fstc.proactivity.log.AbstractLoggerBasedOnJavaUtil" project="Global" 
+    file="/Global/src/lu/uni/fstc/proactivity/log/AbstractLoggerBasedOnJavaUtil.java" binary="false" 
+    corner="BOTTOM_RIGHT">    
+    <position x="561" y="135" width="-1" height="-1"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" accessors="true" 
+      visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="8" language="java" name="lu.uni.fstc.proactivity.log.DesktopJavaLogger" project="Global" 
+    file="/Global/src/lu/uni/fstc/proactivity/log/DesktopJavaLogger.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position x="863" y="488" width="-1" height="-1"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" accessors="true" 
+      visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="9" language="java" name="lu.uni.fstc.proactivity.log.DesktopJavaLoggerBasedOnJavaUtil" project="Global" 
+    file="/Global/src/lu/uni/fstc/proactivity/log/DesktopJavaLoggerBasedOnJavaUtil.java" binary="false" 
+    corner="BOTTOM_RIGHT">    
+    <position x="560" y="488" width="-1" height="-1"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" accessors="true" 
+      visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <generalization id="10">    
+    <end type="SOURCE" refId="3"/>    
+    <end type="TARGET" refId="5"/>  
+  </generalization>  
+  <generalization id="11">    
+    <end type="SOURCE" refId="8"/>    
+    <end type="TARGET" refId="6"/>  
+  </generalization>  
+  <generalization id="12">    
+    <end type="SOURCE" refId="4"/>    
+    <end type="TARGET" refId="5"/>  
+  </generalization>  
+  <generalization id="13">    
+    <end type="SOURCE" refId="9"/>    
+    <end type="TARGET" refId="7"/>  
+  </generalization>  
+  <generalization id="14">    
+    <end type="SOURCE" refId="2"/>    
+    <end type="TARGET" refId="5"/>  
+  </generalization>  
+  <classifier-display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+    accessors="true" visibility="true">    
+    <attributes public="true" package="true" protected="true" private="true" static="true"/>    
+    <operations public="true" package="true" protected="true" private="true" static="true"/>  
+  </classifier-display>  
+  <association-display labels="true" multiplicity="true"/>
+</class-diagram>

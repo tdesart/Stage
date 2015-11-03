@@ -1,0 +1,24 @@
+<?xml version='1.0' encoding='utf-8'?>
+<!DOCTYPE hibernate-configuration PUBLIC
+"-//Hibernate/Hibernate Configuration DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-configuration-3.0.dtd">
+
+<hibernate-configuration>
+	<session-factory>
+		<!-- Connection -->
+		<property name="hibernate.connection.driver_class">com.mysql.jdbc.Driver</property>
+		<property name="hibernate.connection.url">jdbc:mysql://moodle-test.uni.lux/PAM</property>
+		<property name="hibernate.connection.username">root</property>
+		<property name="hibernate.connection.password">moodle</property>
+		<property name="hibernate.connection.pool_size">10</property>
+		<!-- Configuration -->
+		<property name="show_sql">false</property>
+		<property name="dialect">org.hibernate.dialect.MySQLDialect</property>
+		<property name="hibernate.hbm2ddl.auto">update</property>
+		<!-- Mapping -->
+		<mapping resource="lu/uni/fstc/proactivity/rules/rules.hbm.xml" />
+		<mapping resource="lu/uni/fstc/proactivity/ruleRunningSystem/statistics.hbm.xml" />
+		<mapping resource="lu/uni/fstc/proactivity/messaging/messages.hbm.xml" />
+		<mapping resource="lu/uni/fstc/proactivity/ruleRunningSystem/sysparams.hbm.xml" />
+	</session-factory>
+</hibernate-configuration>

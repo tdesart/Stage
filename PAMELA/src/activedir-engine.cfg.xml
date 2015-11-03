@@ -1,0 +1,9 @@
+<pam-configuration>
+	<connection name = "Test server-active directory engine">
+		<host>moodle-test.uni.lux</host>
+		<port>3306</port>
+		<schema>active_dir_engine</schema>
+		<user>root</user>
+		<pass>moodle</pass>
+	</connection>
+</pam-configuration>

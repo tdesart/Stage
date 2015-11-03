@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<projectDescription>
+	<name>PAMELA</name>
+	<comment></comment>
+	<projects>
+		<project>Global</project>
+	</projects>
+	<buildSpec>
+		<buildCommand>
+			<name>org.eclipse.jdt.core.javabuilder</name>
+			<arguments>
+			</arguments>
+		</buildCommand>
+	</buildSpec>
+	<natures>
+		<nature>org.eclipse.jdt.core.javanature</nature>
+	</natures>
+	<linkedResources>
+		<link>
+			<name>logging.properties</name>
+			<type>1</type>
+			<location>C:/Program Files/Java/jdk1.6.0_29/jre/lib/logging.properties</location>
+		</link>
+	</linkedResources>
+</projectDescription>
