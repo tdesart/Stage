@@ -46,7 +46,7 @@ public class AD_R1 extends AbstractRule {
 		// TODO Auto-generated method stub
 		createRule(new AD_CreateTableGroup());
 		createRule(new AD_CheckIfExists("Groupe", this.listUser));
-		createRule(new AD_Analyse(1000));//this.listSize));
+		createRule(new AD_Analyse(1000,"Groupe"/*this.listSize*/));
 		return true;
 	}
 

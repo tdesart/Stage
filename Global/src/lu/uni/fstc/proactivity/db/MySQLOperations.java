@@ -1,13 +1,11 @@
 package lu.uni.fstc.proactivity.db;
 
-// Changed from java.sql.Connection to com.mysql.jdbc.Connection, in order to be able to use the setContinueBatchOnError method.
-// import java.sql.Connection;
-import com.mysql.jdbc.Connection;
-
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-import org.apache.commons.collections.functors.ExceptionClosure;
+// Changed from java.sql.Connection to com.mysql.jdbc.Connection, in order to be able to use the setContinueBatchOnError method.
+// import java.sql.Connection;
+import com.mysql.jdbc.Connection;
 
 import lu.uni.fstc.proactivity.parameters.ConnectionParameters;
 import lu.uni.fstc.proactivity.parameters.DbConnectionParameters;
@@ -884,6 +882,108 @@ public final class MySQLOperations extends GenericDataAccessOperations {
 	public void dropTable(final int conn,String tableName) {
 		String q = "DROP TABLE IF EXISTS "+tableName;
 		executeUpdate(conn, q);		
+	}
+
+	public void createTable(int conn, String tableName) {
+		String q = "CREATE  TABLE IF NOT EXISTS`"+tableName+"` (" 
+				+ "`Name` VARCHAR(256) NOT NULL ," 
+				+" `Age` BIGINT NULL)";
+				
+		executeUpdate(conn, q);
+		
+	}
+
+	public void insertInto(int conn, String tableName, String s) {
+		String q = "INSERT INTO "+tableName+" (Name) VALUES ('"+s+"')";
+		executeUpdate(conn, q);
+		
+	}
+	
+	public void insertInto(int conn, String tableName, String s, String s1) {
+		String q = "INSERT INTO "+tableName+" (Name, Age) VALUES ('"+s+"',"+s1+")";
+		executeUpdate(conn, q);
+		
+	}
+	
+	public String getManager(final int conn, String tableName){
+		String q = "SELECT Name from("
+				+ "SELECT COUNT(Name)AS nbr_doublon, Name "
+				+ "FROM     "+tableName+" "
+				+ "GROUP BY Name "
+				+ "ORDER BY nbr_doublon DESC "
+				+ "LIMIT 1) as T";
+		return getStringFromSelect(conn, q);
+	}
+	
+	public String getFinish(final int conn, String tableName){
+		String q = "SELECT Name"
+				+" FROM "+tableName
+				+" WHERE Name = 'Finish'";
+		return getStringFromSelect(conn, q);
+	}
+	
+	public ResultSet getTopGroup(final int conn, String tableName){
+		String q = "SELECT Name from("
+				+ "SELECT COUNT(Name)AS nbr_doublon, Name "
+				+ "FROM     "+tableName+" "
+				+ "GROUP BY Name "
+				+ "ORDER BY nbr_doublon DESC "
+				+ "LIMIT 3) as T";
+		return getArrayFromSelect(conn, q);
+	}
+	
+	public long getMean(final int conn, String tableName){
+		String q = "SELECT AVG(Age)"
+				+" FROM "+tableName;
+		return getLongFromSelect(conn, q);
+	}
+	
+	public long getMax(final int conn, String tableName){
+		String q = "SELECT MAX(Age)"
+				+" FROM "+tableName;
+		return getLongFromSelect(conn, q);
+	}
+	
+	public void createNewProfile(final int conn ,Profil group){
+		String[] t= group.getTopGroup();
+		String q = "INSERT INTO TopGroups (Group1, Group2, Group3) VALUES('"+t[0]+"','"+t[1]+"','"+t[2]+"')";
+		executeUpdate(conn,q);
+		q = "INSERT INTO Profil (manager,activity,size,topGroups) VALUES ('"+group.getManager()+"',0,0,LAST_INSERT_ID())";
+		executeUpdate(conn, q);
+		q = "INSERT INTO Groups (name,whenCreated,nbrMembers,whenChanged,manager,ageMembers,youngestMember,profil) VALUES ("
+				+ "'"+group.getDistinguishedName()+"',"
+				+ group.getWhenCreated()+","
+				+ group.getMembersSize()+","
+				+ group.getWhenChanged()+","
+				+ "'"+group.getManager()+"',"
+				+ group.getMeanCreationDate()+","
+				+ group.getMostRecentCreationDate()+","
+				+ "LAST_INSERT_ID())";
+		executeUpdate(conn,q);
+	}
+	
+	public ResultSet checkProfile(final int conn, Profil group){
+		String q = "SELECT idProfil "
+				+ "FROM Profil,TopGroups "
+				+ "WHERE manager = '"+group.getManager()+"' AND "
+				+ "topGroups = idTopGroups AND "
+				+ "'"+group.getTopGroup()[0] +"' IN (Group1,Group2,Group3) AND "
+				+ "'"+group.getTopGroup()[1] +"' IN (Group1,Group2,Group3) AND "
+				+ "'"+group.getTopGroup()[2] +"' IN (Group1,Group2,Group3);";
+		return getArrayFromSelect(conn, q);
+	}
+	
+	public void insertGroup(final int conn, Profil group, int idProfil){
+		String q = "INSERT INTO Groups (name,whenCreated,nbrMembers,whenChanged,manager,ageMembers,youngestMember,profil) VALUES ("
+				+ "'"+group.getDistinguishedName()+"',"
+				+ group.getWhenCreated()+","
+				+ group.getMembersSize()+","
+				+ group.getWhenChanged()+","
+				+ "'"+group.getManager()+"',"
+				+ group.getMeanCreationDate()+","
+				+ group.getMostRecentCreationDate()+","
+				+ idProfil+")";
+		executeUpdate(conn,q);
 	}
 
 }

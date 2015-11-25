@@ -198,5 +198,14 @@
 		<joined-subclass name="lu.uni.fstc.proactivity.rules.activeDir.AD_CheckIfExists" table="Rules_AD_CheckIfExists">
 			<key                            column="rule_id" />
 		</joined-subclass>
+		<joined-subclass name="lu.uni.fstc.proactivity.rules.activeDir.AD_CreateTable" table="Rules_AD_CreateTable">
+			<key                            column="rule_id" />
+		</joined-subclass>
+		<joined-subclass name="lu.uni.fstc.proactivity.rules.activeDir.AD_InsertInto" table="Rules_AD_InsertInto">
+			<key                            column="rule_id" />
+		</joined-subclass>
+		<joined-subclass name="lu.uni.fstc.proactivity.rules.activeDir.AD_ProfilCreation" table="Rules_AD_ProfilCreation">
+			<key                            column="rule_id" />
+		</joined-subclass>
 	</class>
 </hibernate-mapping>

@@ -55,11 +55,11 @@ public final class ActiveDirOperations {
 	}
 	
 	public ArrayList<SearchResult> getUsers(){
-		String searchBase = "ou=UNI-Users,dc=uni,dc=lux";//"ou=Users-demo,dc=demo,dc=com";
+		String searchBase = "ou=UNI-Users,dc=uni,dc=lux";
 		String searchFilter = "(objectClass=person)";
 		SearchControls sCtrl = new SearchControls();
 		sCtrl.setSearchScope(SearchControls.SUBTREE_SCOPE);
-		ArrayList<SearchResult> temp = search("ou=BOG,"+searchBase,searchFilter,sCtrl);
+		ArrayList<SearchResult> temp = /*search(searchBase,searchFilter,sCtrl);*/search("ou=BOG,"+searchBase,searchFilter,sCtrl);
 		temp.addAll(search("ou=Administration,ou=FDEF,ou=Faculties,"+searchBase,searchFilter,sCtrl));
 		temp.addAll(search("ou=Assistants,ou=FDEF,ou=Faculties,"+searchBase,searchFilter,sCtrl));
 		temp.addAll(search("ou=Research,ou=FDEF,ou=Faculties,"+searchBase,searchFilter,sCtrl));
@@ -92,7 +92,7 @@ public final class ActiveDirOperations {
 		return search(searchBase,searchFilter,sCtrl);
 	}
 	
-	private ArrayList<SearchResult> search(String searchBase, String searchFilter, SearchControls sCtrl){
+	public ArrayList<SearchResult> search(String searchBase, String searchFilter, SearchControls sCtrl){
 		ArrayList<SearchResult> results = new ArrayList<>();
 
 		try {
