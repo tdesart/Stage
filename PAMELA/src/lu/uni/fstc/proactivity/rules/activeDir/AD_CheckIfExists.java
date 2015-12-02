@@ -18,8 +18,8 @@ public class AD_CheckIfExists extends AbstractRule {
 
 	@Override
 	protected void dataAcquisition() {
-		this.tableExist = ((AbstractActiveDirWrapper) dataNativeSystem).tableExist(this.group.getCn());
-		this.tableGExist = ((AbstractActiveDirWrapper) dataNativeSystem).tableExist(this.group.getCn()+"G");
+		this.tableExist = ((AbstractActiveDirWrapper) dataNativeSystem).tableExist(this.group.getNumber());
+		this.tableGExist = ((AbstractActiveDirWrapper) dataNativeSystem).tableExist(this.group.getNumber()+"G");
 		System.out.println(this.toString());
 
 	}
@@ -53,6 +53,7 @@ public class AD_CheckIfExists extends AbstractRule {
 //				}
 //			}
 			createRule(new AD_R001(this.group));
+			createRule(new AD_Analyse(this.group));
 		}
 		else
 			createRule(new AD_CheckIfExists(this.group));

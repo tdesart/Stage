@@ -1,7 +1,7 @@
 package lu.uni.fstc.proactivity.db;
 
-import java.sql.ResultSet;
 import java.util.ArrayList;
+import java.util.HashSet;
 
 import javax.naming.directory.SearchResult;
 
@@ -40,9 +40,7 @@ public abstract class AbstractActiveDirWrapper extends AbstractHostDataAccessWra
 	public abstract ArrayList<SearchResult> search(String searchBase, String SearchFilter);
 	
 	public abstract void createTable(String tableName);
-	
-	public abstract void insertInto(String tableName,String s);
-	
+		
 	public abstract void insertInto(String tableName,String s, String s1);
 	
 	public abstract String getManager(String tableName);
@@ -56,4 +54,17 @@ public abstract class AbstractActiveDirWrapper extends AbstractHostDataAccessWra
 	public abstract long getMean(String tableName);
 	
 	public abstract void checkProfil(Profil group);
+
+	public abstract void insertInto(String tableName, ArrayList memberOf, String distinguishedName);
+	
+	public abstract void cleanDb();
+	
+	public abstract HashSet<String> findSuggestion(String manager, String userName);
+	
+	public abstract void createTableSuggestion();
+	
+	public abstract long countSuggestion();
+	
+	public abstract String getSuggestion();
+
 }

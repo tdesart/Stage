@@ -20,10 +20,11 @@ public class Profil {
 	private String distinguishedName;
 	private String cn;
 	private ArrayList<SearchResult> members;
+	private int number;
 	
 	private SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMddHHmmSS");
 	
-	public Profil(SearchResult group, String cn) {
+	public Profil(SearchResult group,int i) {
 		sdf.setTimeZone(TimeZone.getTimeZone("UTC"));
 		Attributes attrs = group.getAttributes();
 		if(attrs != null){
@@ -31,7 +32,8 @@ public class Profil {
 				this.whenCreated = sdf.parse((String) attrs.get("whenCreated").get()).getTime();
 				this.whenChanged = sdf.parse((String) attrs.get("whenChanged").get()).getTime();
 				this.distinguishedName = ((String) attrs.get("distinguishedName").get());
-				this.setCn(cn);
+				this.cn = ((String) attrs.get("cn").get());
+				this.number = i;
 			} catch (ParseException | NamingException e) {
 				e.printStackTrace();
 			}
@@ -39,6 +41,10 @@ public class Profil {
 			
 	}
 	
+	public String getNumber() {
+		return String.valueOf(number);
+	}
+
 	public long getWhenCreated() {
 		return whenCreated;
 	}
@@ -69,6 +75,17 @@ public class Profil {
 
 	public int getMembersSize() {
 		return members.size();
+	}
+	
+	public int getSizeMeasure(){
+		int size = getMembersSize();
+		if(size <=10)
+			return 1;
+		if(size <=100)
+			return 2;
+		if(size > 100)
+			return 3;
+		return 0;
 	}
 
 	public ArrayList<SearchResult> getMembers() {

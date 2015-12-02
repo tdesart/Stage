@@ -2,6 +2,9 @@ package lu.uni.fstc.proactivity.db;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.Iterator;
 
 // Changed from java.sql.Connection to com.mysql.jdbc.Connection, in order to be able to use the setContinueBatchOnError method.
 // import java.sql.Connection;
@@ -865,12 +868,12 @@ public final class MySQLOperations extends GenericDataAccessOperations {
 	}
 
 	public long tableExist(final int conn, String tableName) {
-		String q = "SHOW TABLES LIKE '" + tableName + "'";
+		String q = "SHOW TABLES LIKE '" + tableName+"'";
 		return executeUpdate(conn, q);
 	}
 
 	public long countLines(final int conn, String tableName) {
-		String q = "SELECT COUNT(*) FROM " + tableName;
+		String q = "SELECT COUNT(*) FROM `" + tableName+"`";
 		return getLongFromSelect(conn, q);
 	}
 
@@ -880,27 +883,31 @@ public final class MySQLOperations extends GenericDataAccessOperations {
 	}
 
 	public void dropTable(final int conn,String tableName) {
-		String q = "DROP TABLE IF EXISTS "+tableName;
+		String q = "DROP TABLE IF EXISTS `"+tableName+"`";
 		executeUpdate(conn, q);		
 	}
 
 	public void createTable(int conn, String tableName) {
-		String q = "CREATE  TABLE IF NOT EXISTS`"+tableName+"` (" 
-				+ "`Name` VARCHAR(256) NOT NULL ," 
-				+" `Age` BIGINT NULL)";
-				
+		String q = "CREATE  TABLE IF NOT EXISTS `"+tableName+"` (" 
+				+ "Name VARCHAR(256) NOT NULL ," 
+				+ "Age BIGINT NULL)";
 		executeUpdate(conn, q);
-		
 	}
 
-	public void insertInto(int conn, String tableName, String s) {
-		String q = "INSERT INTO "+tableName+" (Name) VALUES ('"+s+"')";
+	public void insertInto(int conn, String tableName, ArrayList memberOf,String distinguishedName) {
+		String q = "INSERT INTO `"+tableName+"` (Name) VALUES ";
+		for(int i = 0; i<memberOf.size()-1;i++){
+			String s = (String) memberOf.get(i);
+			if(!s.equals(distinguishedName))
+				q = q + "('"+s+"'),";
+		}
+		q = q + "('" +memberOf.get(memberOf.size()-1)+"');"; 
 		executeUpdate(conn, q);
 		
 	}
 	
 	public void insertInto(int conn, String tableName, String s, String s1) {
-		String q = "INSERT INTO "+tableName+" (Name, Age) VALUES ('"+s+"',"+s1+")";
+		String q = "INSERT INTO `"+tableName+"` (Name, Age) VALUES ('"+s+"',"+s1+")";
 		executeUpdate(conn, q);
 		
 	}
@@ -908,7 +915,7 @@ public final class MySQLOperations extends GenericDataAccessOperations {
 	public String getManager(final int conn, String tableName){
 		String q = "SELECT Name from("
 				+ "SELECT COUNT(Name)AS nbr_doublon, Name "
-				+ "FROM     "+tableName+" "
+				+ "FROM     `"+tableName+"` "
 				+ "GROUP BY Name "
 				+ "ORDER BY nbr_doublon DESC "
 				+ "LIMIT 1) as T";
@@ -917,7 +924,7 @@ public final class MySQLOperations extends GenericDataAccessOperations {
 	
 	public String getFinish(final int conn, String tableName){
 		String q = "SELECT Name"
-				+" FROM "+tableName
+				+" FROM `"+tableName+"`"
 				+" WHERE Name = 'Finish'";
 		return getStringFromSelect(conn, q);
 	}
@@ -925,7 +932,7 @@ public final class MySQLOperations extends GenericDataAccessOperations {
 	public ResultSet getTopGroup(final int conn, String tableName){
 		String q = "SELECT Name from("
 				+ "SELECT COUNT(Name)AS nbr_doublon, Name "
-				+ "FROM     "+tableName+" "
+				+ "FROM     `"+tableName+"` "
 				+ "GROUP BY Name "
 				+ "ORDER BY nbr_doublon DESC "
 				+ "LIMIT 3) as T";
@@ -934,13 +941,13 @@ public final class MySQLOperations extends GenericDataAccessOperations {
 	
 	public long getMean(final int conn, String tableName){
 		String q = "SELECT AVG(Age)"
-				+" FROM "+tableName;
+				+" FROM `"+tableName+"`";
 		return getLongFromSelect(conn, q);
 	}
 	
 	public long getMax(final int conn, String tableName){
 		String q = "SELECT MAX(Age)"
-				+" FROM "+tableName;
+				+" FROM `"+tableName+"`";
 		return getLongFromSelect(conn, q);
 	}
 	
@@ -948,7 +955,7 @@ public final class MySQLOperations extends GenericDataAccessOperations {
 		String[] t= group.getTopGroup();
 		String q = "INSERT INTO TopGroups (Group1, Group2, Group3) VALUES('"+t[0]+"','"+t[1]+"','"+t[2]+"')";
 		executeUpdate(conn,q);
-		q = "INSERT INTO Profil (manager,activity,size,topGroups) VALUES ('"+group.getManager()+"',0,0,LAST_INSERT_ID())";
+		q = "INSERT INTO Profil (manager,activity,size,topGroups) VALUES ('"+group.getManager()+"',0,"+group.getSizeMeasure()+",LAST_INSERT_ID())";
 		executeUpdate(conn, q);
 		q = "INSERT INTO Groups (name,whenCreated,nbrMembers,whenChanged,manager,ageMembers,youngestMember,profil) VALUES ("
 				+ "'"+group.getDistinguishedName()+"',"
@@ -967,6 +974,7 @@ public final class MySQLOperations extends GenericDataAccessOperations {
 				+ "FROM Profil,TopGroups "
 				+ "WHERE manager = '"+group.getManager()+"' AND "
 				+ "topGroups = idTopGroups AND "
+				+ "size = "+group.getSizeMeasure()+" AND "				
 				+ "'"+group.getTopGroup()[0] +"' IN (Group1,Group2,Group3) AND "
 				+ "'"+group.getTopGroup()[1] +"' IN (Group1,Group2,Group3) AND "
 				+ "'"+group.getTopGroup()[2] +"' IN (Group1,Group2,Group3);";
@@ -985,5 +993,97 @@ public final class MySQLOperations extends GenericDataAccessOperations {
 				+ idProfil+")";
 		executeUpdate(conn,q);
 	}
+	
+	public void cleanDb(final int conn){
+		String q = "CREATE TABLE IF NOT EXISTS `TopGroups` ("
+				+ "`idTopGroups` int(11) NOT NULL AUTO_INCREMENT,"
+				+ "`Group1` varchar(256) NOT NULL,"
+				+ "`Group2` varchar(256) NOT NULL,"
+				+ "`Group3` varchar(256) NOT NULL,"
+				+ "PRIMARY KEY (`idTopGroups`)"
+				+ ")"; 
+		executeUpdate(conn, q);
+		q = "CREATE TABLE IF NOT EXISTS `Profil` ("
+				+ "`idProfil` int(11) NOT NULL AUTO_INCREMENT,"
+				+ "`manager` varchar(256) NOT NULL,"
+				+ "`activity` int(11) NOT NULL,"
+				+ "`size` int(11) NOT NULL,"
+				+ "`topGroups` int(11) NOT NULL,"
+				+ "PRIMARY KEY (`idProfil`),"
+				+ "KEY `topGroup` (`topGroups`),"
+				+ "CONSTRAINT `topGroup` FOREIGN KEY (`topGroups`) REFERENCES `TopGroups` (`idTopGroups`) ON DELETE NO ACTION ON UPDATE NO ACTION"
+				+ ")";
+		executeUpdate(conn, q);
+		q = "CREATE TABLE IF NOT EXISTS `Groups` ("
+			+ "`name` varchar(256) NOT NULL,"
+			+ "`whenCreated` bigint(20) NOT NULL,"
+			+ "`nbrMembers` int(11) NOT NULL,"
+			+ "`whenChanged` bigint(20) NOT NULL,"
+			+ "`manager` varchar(256) NOT NULL,"
+			+ "`ageMembers` bigint(20) NOT NULL,"
+			+ "`youngestMember` bigint(20) NOT NULL,"
+			+ "`profil` int(11) NOT NULL,"
+			+ "PRIMARY KEY (`name`),"
+			+ "KEY `profil` (`profil`),"
+			+ "CONSTRAINT `profil` FOREIGN KEY (`profil`) REFERENCES `Profil` (`idProfil`) ON DELETE NO ACTION ON UPDATE NO ACTION"
+			+ ")" ;
+		executeUpdate(conn, q);
+		q = "DELETE FROM `Groups`";
+		executeUpdate(conn, q);
+		q = "DELETE FROM `Profil`";
+		executeUpdate(conn, q);
+		q = "ALTER TABLE `Profil` AUTO_INCREMENT = 1";
+		executeUpdate(conn, q);
+		q = "DELETE FROM `TopGroups`";
+		executeUpdate(conn, q);
+		q = "ALTER TABLE `TopGroups` AUTO_INCREMENT = 1";
+		executeUpdate(conn, q);
+	}
+	
+	public ResultSet findProfil(final int conn, String manager){
+		String q = "SELECT Group1,Group2,Group3 "
+				+ "FROM `Profil`,`TopGroups` "
+				+ "WHERE manager = '"+manager+"' AND "
+				+ "topGroups = idTopGroups "
+				+ "ORDER BY size DESC";
+		return getArrayFromSelect(conn, q);
+	}
+	
+	public void createTableSuggestion(final int conn){
+		String q = "CREATE  TABLE IF NOT EXISTS `Suggestion` ("
+				+ "`idSuggestion` INT NOT NULL AUTO_INCREMENT ,"
+				+ "`name` VARCHAR(256) NULL ,"
+				+ "`groupe` VARCHAR(256) NULL ,"
+				+ "PRIMARY KEY (`idSuggestion`) );";
+		executeUpdate(conn, q);
+	}
+	
+	public void insertSuggestion(final int conn, HashSet<String> hs, String userName){
+		String q = "INSERT INTO `Suggestion` (`name`, `groupe`) "
+				+ "VALUES ";
+		Iterator<String> i = hs.iterator();
+		while(i.hasNext()){
+			q = q + "('"+userName+"','"+i.next()+"'),";
+		}
+		q=q+"('"+userName+"','No Suggestion');";
+		executeUpdate(conn, q);
+		q = "DELETE FROM Suggestion "
+				+ "WHERE`name` in ( "
+				+ "SELECT * FROM (SELECT `name` FROM Suggestion WHERE groupe <> 'No Suggestion' Group BY `name`)as t1) "
+				+ "AND groupe = 'No Suggestion'	";	
+		executeUpdate(conn, q);
+	}
+	
+	public long countSuggestion(final int conn){
+		String q  = "SELECT COUNT(DISTINCT name) FROM Suggestion";
+		return getLongFromSelect(conn, q);
+	}
+	
+	public ResultSet getSuggestion(final int conn){
+		String q = "SELECT `Suggestion`.`name`, `Suggestion`.`name`,`Suggestion`.`groupe` FROM `active_dir_system`.`Suggestion`";
+		return getArrayFromSelect(conn, q);
+	}
+	
+	
 
 }

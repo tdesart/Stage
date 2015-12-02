@@ -3,6 +3,8 @@ package lu.uni.fstc.proactivity.db;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.LinkedHashSet;
 
 import javax.naming.directory.SearchControls;
 import javax.naming.directory.SearchResult;
@@ -94,8 +96,8 @@ public class ActiveDirWrapper extends AbstractActiveDirWrapper {
 	}
 
 	@Override
-	public void insertInto(String tableName, String s) {
-		mso.insertInto(conn, tableName, s);
+	public void insertInto(String tableName, ArrayList memberOf,String distinguishedName) {
+		mso.insertInto(conn, tableName, memberOf, distinguishedName);
 	}
 	
 	public void insertInto(String tableName, String s,String s1) {
@@ -120,8 +122,10 @@ public class ActiveDirWrapper extends AbstractActiveDirWrapper {
 		String[] top = new String[3];
 		try {
 			while(rs.next()){
-				top[i] = rs.getString("Name");
-				i++;
+				if(!rs.getString("Name").equals("Finish")){
+					top[i] = rs.getString("Name");
+					i++;
+				}
 			}
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
@@ -158,6 +162,67 @@ public class ActiveDirWrapper extends AbstractActiveDirWrapper {
 			e.printStackTrace();
 		} 
 				
+	}
+
+	@Override
+	public void cleanDb() {
+		mso.cleanDb(conn);
+		
+	}
+
+	@Override
+	public HashSet<String> findSuggestion(String manager, String userName) {
+		ResultSet rs = mso.findProfil(conn, manager);
+		LinkedHashSet<String> hs = new LinkedHashSet<String>();
+		try {
+			while(rs.next()){
+				hs.add((rs.getString("Group1")));
+				hs.add((rs.getString("Group2")));
+				hs.add((rs.getString("Group3")));
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		mso.insertSuggestion(conn, hs, userName);
+		return hs;
+	}
+
+	@Override
+	public void createTableSuggestion() {
+		mso.createTableSuggestion(conn);
+		
+	}
+	
+	public long countSuggestion(){
+		return mso.countSuggestion(conn);
+	}
+	
+	public String getSuggestion(){
+		ResultSet rs = mso.getSuggestion(conn);
+		String name ="";
+		String name2="";
+		String result="";
+		try {
+			while(rs.next()){
+				if(name2.equals("")){
+					name2 = rs.getString("name");
+					result += "<li>"+name2+"</li>";
+				}
+				name = rs.getString("name");
+				if(name.equals(name2))
+					result += ("&nbsp;&nbsp;&nbsp;&nbsp;&nbsp - &nbsp"+rs.getString("groupe"))+"<br>";
+				else{
+					name2 = rs.getString("name");
+					result +="<li>"+ name2+"</li>";
+					result += ("&nbsp;&nbsp;&nbsp;&nbsp;&nbsp - &nbsp"+rs.getString("groupe"))+"<br>";
+				}
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return "<ul>"+result+"</ul>";
 	}
 
 }

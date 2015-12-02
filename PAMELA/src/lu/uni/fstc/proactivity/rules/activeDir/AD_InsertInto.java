@@ -26,7 +26,7 @@ public class AD_InsertInto extends AbstractRule {
 	public AD_InsertInto(SearchResult user,Profil group){
 		super();
 		this.user = user;
-		this.tableName = group.getCn();
+		this.tableName = group.getNumber();
 		this.group = group;
 	}
 	
@@ -34,7 +34,7 @@ public class AD_InsertInto extends AbstractRule {
 		super();
 		this.group = group;
 		this.endMessage  = endMessage;
-		this.tableName = group.getCn();
+		this.tableName = group.getNumber();
 	}
 
 	@Override
@@ -73,24 +73,21 @@ public class AD_InsertInto extends AbstractRule {
 				e.printStackTrace();
 			}
 			if(this.memberOf != null){
-				for(int i = 0; i<this.memberOf.size(); i++){
-					if(!this.memberOf.get(i).equals(this.group.getDistinguishedName()))
-						((AbstractActiveDirWrapper) dataNativeSystem).insertInto(this.tableName+"G",(String) this.memberOf.get(i));
-				}
+//				for(int i = 0; i<this.memberOf.size(); i++){
+//					if(!this.memberOf.get(i).equals(this.group.getDistinguishedName()))
+//						((AbstractActiveDirWrapper) dataNativeSystem).insertInto(this.tableName+"G",(String) this.memberOf.get(i));
+//				}
+				((AbstractActiveDirWrapper) dataNativeSystem).insertInto(this.tableName+"G",this.memberOf,this.group.getDistinguishedName());
 			}
 		}
 		else {
-			((AbstractActiveDirWrapper) dataNativeSystem).insertInto(this.tableName+"G",(String) this.endMessage);
+			((AbstractActiveDirWrapper) dataNativeSystem).insertInto(this.tableName+"G",(String) this.endMessage,null);
 		}
 	}
 
 	@Override
 	protected boolean rulesGeneration() {
-		// TODO Auto-generated method stub
-		if(!getActivated()){
-			createRule(new AD_R003("An error occur"));
-		}
-		return true;
+		return false;
 	}
 
 	@Override
