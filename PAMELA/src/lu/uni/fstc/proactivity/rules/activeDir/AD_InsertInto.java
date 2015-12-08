@@ -22,6 +22,7 @@ public class AD_InsertInto extends AbstractRule {
 	private ArrayList memberOf = null;
 	private String endMessage = "";
 	private String whenCreated;
+	private String role;
 		
 	public AD_InsertInto(SearchResult user,Profil group){
 		super();
@@ -44,10 +45,17 @@ public class AD_InsertInto extends AbstractRule {
 				this.whenCreated = user.getAttributes().get("whenCreated").get().toString();
 				this.memberOf = Collections.list(user.getAttributes().get("memberOf").getAll());
 				this.manager = user.getAttributes().get("manager").get().toString();
+				this.role = user.getAttributes().get("extensionAttribute4").get().toString();
 			}
 		} catch (Exception e) {
 			//e.printStackTrace();
 			this.manager="noManager";
+		}
+		try {
+			this.role = user.getAttributes().get("extensionAttribute4").get().toString();
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			this.role="noRole";
 		}
 		
 	}
@@ -68,20 +76,16 @@ public class AD_InsertInto extends AbstractRule {
 		sdf.setTimeZone(TimeZone.getTimeZone("UTC"));
 		if(endMessage.equals("")){
 			try {
-				((AbstractActiveDirWrapper) dataNativeSystem).insertInto(this.tableName,this.manager,Long.toString(sdf.parse(this.whenCreated).getTime()));
+				((AbstractActiveDirWrapper) dataNativeSystem).insertInto(this.tableName,this.manager,Long.toString(sdf.parse(this.whenCreated).getTime()),this.role);
 			} catch (Exception e) {				
 				e.printStackTrace();
 			}
 			if(this.memberOf != null){
-//				for(int i = 0; i<this.memberOf.size(); i++){
-//					if(!this.memberOf.get(i).equals(this.group.getDistinguishedName()))
-//						((AbstractActiveDirWrapper) dataNativeSystem).insertInto(this.tableName+"G",(String) this.memberOf.get(i));
-//				}
 				((AbstractActiveDirWrapper) dataNativeSystem).insertInto(this.tableName+"G",this.memberOf,this.group.getDistinguishedName());
 			}
 		}
 		else {
-			((AbstractActiveDirWrapper) dataNativeSystem).insertInto(this.tableName+"G",(String) this.endMessage,null);
+			((AbstractActiveDirWrapper) dataNativeSystem).insertInto(this.tableName+"G",(String) this.endMessage,null,null);
 		}
 	}
 

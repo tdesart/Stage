@@ -33,7 +33,7 @@ public abstract class AbstractActiveDirWrapper extends AbstractHostDataAccessWra
 	
 	public abstract long countLines(String tableName);
 	
-	public abstract void insertIntoGroupe(String groupeName,boolean result);
+	public abstract void insertInto(String groupeName,boolean result,String reason);
 
 	public abstract void dropTable(String tableName) ;
 	
@@ -41,7 +41,7 @@ public abstract class AbstractActiveDirWrapper extends AbstractHostDataAccessWra
 	
 	public abstract void createTable(String tableName);
 		
-	public abstract void insertInto(String tableName,String s, String s1);
+	public abstract void insertInto(String tableName,String s, String s1, String role);
 	
 	public abstract String getManager(String tableName);
 	
@@ -53,18 +53,22 @@ public abstract class AbstractActiveDirWrapper extends AbstractHostDataAccessWra
 	
 	public abstract long getMean(String tableName);
 	
+	public abstract String getRole(String tableName);
+	
 	public abstract void checkProfil(Profil group);
 
 	public abstract void insertInto(String tableName, ArrayList memberOf, String distinguishedName);
 	
 	public abstract void cleanDb();
 	
-	public abstract HashSet<String> findSuggestion(String manager, String userName);
+	public abstract void findSuggestion(String manager, String userName, String role);
 	
 	public abstract void createTableSuggestion();
 	
 	public abstract long countSuggestion();
 	
 	public abstract String getSuggestion();
+
+	public abstract String getGroupDelete() ;
 
 }

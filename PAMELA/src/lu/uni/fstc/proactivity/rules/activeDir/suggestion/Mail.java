@@ -9,6 +9,7 @@ import javax.mail.Transport;
 import javax.mail.internet.AddressException;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
+import javax.mail.internet.MimeMessage.RecipientType;
 
 public class Mail {
 	
@@ -35,8 +36,9 @@ public class Mail {
 			Message message = new MimeMessage(session);
 			message.setFrom(new InternetAddress("ProActiveDirectory"));
 			message.setRecipients(Message.RecipientType.TO, InternetAddress.parse(this.to));
+			//message.addRecipient(RecipientType.BCC, new InternetAddress("denis.zampunieris@uni.lu"));
 			message.setSubject(this.subject);
-			message.setContent(this.body+"<br> <br>--- This is an automatic email, please <b>do not reply</b> --- ","text/html");
+			message.setContent("<font size =\"2\" face=\"arial\" >"+this.body+"<br> <br>--- This is an automatic email, please <b>do not reply</b> --- </font>","text/html");
 			
 			Transport transport = session.getTransport("smtp");
 			transport.connect("smtp.uni.lu", "", "");

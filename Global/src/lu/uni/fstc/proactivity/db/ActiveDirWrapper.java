@@ -71,8 +71,8 @@ public class ActiveDirWrapper extends AbstractActiveDirWrapper {
 	}
 
 	@Override
-	public void insertIntoGroupe(String groupeName, boolean result) {
-		mso.insertIntoGroupe(conn, groupeName, result);
+	public void insertInto(String groupeName, boolean result,String reason) {
+		mso.insertInto(conn, groupeName, result,reason);
 		
 	}
 
@@ -100,13 +100,17 @@ public class ActiveDirWrapper extends AbstractActiveDirWrapper {
 		mso.insertInto(conn, tableName, memberOf, distinguishedName);
 	}
 	
-	public void insertInto(String tableName, String s,String s1) {
-		mso.insertInto(conn, tableName, s, s1);
+	public void insertInto(String tableName, String s,String s1,String role) {
+		mso.insertInto(conn, tableName, s, s1,role);
 		
 	}
 	
 	public String getManager(String tableName){
 		return mso.getManager(conn, tableName);
+	}
+	
+	public String getRole(String tableName){
+		return mso.getRole(conn, tableName);
 	}
 
 	@Override
@@ -171,8 +175,8 @@ public class ActiveDirWrapper extends AbstractActiveDirWrapper {
 	}
 
 	@Override
-	public HashSet<String> findSuggestion(String manager, String userName) {
-		ResultSet rs = mso.findProfil(conn, manager);
+	public void findSuggestion(String manager, String userName, String role) {
+		ResultSet rs = mso.findProfil(conn, manager,role);
 		LinkedHashSet<String> hs = new LinkedHashSet<String>();
 		try {
 			while(rs.next()){
@@ -180,13 +184,24 @@ public class ActiveDirWrapper extends AbstractActiveDirWrapper {
 				hs.add((rs.getString("Group2")));
 				hs.add((rs.getString("Group3")));
 			}
+			mso.insertSuggestion(conn, hs, userName, "Manager and role are matching");
+			if(hs.size() == 0){
+				rs = mso.findProfil(conn, manager);
+				while(rs.next()){
+					hs.add((rs.getString("Group1")));
+					hs.add((rs.getString("Group2")));
+					hs.add((rs.getString("Group3")));
+				}
+				if(hs.size()>0)
+					mso.insertSuggestion(conn, hs, userName, "Only manager is matching");
+			}
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		mso.insertSuggestion(conn, hs, userName);
-		return hs;
+			
 	}
+	
 
 	@Override
 	public void createTableSuggestion() {
@@ -203,26 +218,60 @@ public class ActiveDirWrapper extends AbstractActiveDirWrapper {
 		String name ="";
 		String name2="";
 		String result="";
+		String pw="";
 		try {
 			while(rs.next()){
 				if(name2.equals("")){
 					name2 = rs.getString("name");
-					result += "<li>"+name2+"</li>";
+					String reason = rs.getString("reason");
+					if(reason.equals(""))
+						result += "<li>"+name2+"</li>";
+					else
+						result += "<li>"+name2+"</li>  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp&nbsp"+rs.getString("reason")+"<br><br>";
 				}
 				name = rs.getString("name");
-				if(name.equals(name2))
+				if(name.equals(name2)){
 					result += ("&nbsp;&nbsp;&nbsp;&nbsp;&nbsp - &nbsp"+rs.getString("groupe"))+"<br>";
+					if(!rs.getString("groupe").equals("No Suggestion"))
+						pw += "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp Add-ADGroupMember '"+name+"' '"+rs.getString("groupe")+"'<br>";
+				}
 				else{
+					result += "<br>"+ pw ;
+					pw="";
 					name2 = rs.getString("name");
-					result +="<li>"+ name2+"</li>";
+					String reason = rs.getString("reason");
+					if(reason.equals(""))
+						result += "<li>"+name2+"</li>";
+					else
+						result +="<li>"+ name2+"</li> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp&nbsp"+rs.getString("reason")+"<br><br>";
 					result += ("&nbsp;&nbsp;&nbsp;&nbsp;&nbsp - &nbsp"+rs.getString("groupe"))+"<br>";
+					if(!rs.getString("groupe").equals("No Suggestion"))
+						pw += "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp Add-ADGroupMember '"+name+"' '"+rs.getString("groupe")+"'<br>";
 				}
 			}
+			result += "<br>"+pw;
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		return "<ul>"+result+"</ul>";
+	}
+
+	@Override
+	public String getGroupDelete() {
+		ResultSet rs = mso.getGroupDelete(conn);
+		int i = 0;
+		String result="";
+		try {
+			while(rs.next()){
+				i++;
+				result += "<li>"+rs.getString("name")+"</li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp"+rs.getString("reason")+"<br>" ;
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return  "<b>"+i+"</b> groups have been detected as useless :<br><ul>"+result+"<ul>";
 	}
 
 }

@@ -43,11 +43,9 @@ public class AD_ProfilCreation extends AbstractRule {
 
 	@Override
 	protected boolean rulesGeneration() {
-		if (getActivated()){
 			createRule(new AD_CreateTable(this.profil.getNumber()));
 			createRule(new AD_CreateTable(this.profil.getNumber()+"G"));
 			createRule(new AD_CheckIfExists(this.profil));
-		}
 		return true;
 	}
 

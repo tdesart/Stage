@@ -40,17 +40,17 @@ public class AD_Analyse extends AbstractRule {
 	@Override
 	protected void actions() {
 		if (this.group.getMembersSize() != 0) {
-			System.out.println(((AbstractActiveDirWrapper) dataNativeSystem).getManager(this.tableName));
 			this.group.setManager(((AbstractActiveDirWrapper) dataNativeSystem).getManager(this.tableName));
-			for (int i = 0; i < 3; i++)
-				System.out.println(
-						((AbstractActiveDirWrapper) dataNativeSystem).getTopGroup(this.tableName + "G")[i]);
+			System.out.println(this.group.getManager());
 			this.group.setTopGroup(((AbstractActiveDirWrapper) dataNativeSystem).getTopGroup(this.tableName + "G"));
-			System.out.println(new Date(((AbstractActiveDirWrapper) dataNativeSystem).getMax(this.tableName)));
-			this.group.setMostRecentCreationDate(
-					((AbstractActiveDirWrapper) dataNativeSystem).getMax(this.tableName));
-			System.out.println(new Date(((AbstractActiveDirWrapper) dataNativeSystem).getMean(this.tableName)));
+			for (int i = 0; i < 3; i++)
+				System.out.println(this.group.getTopGroup()[i]);
+			this.group.setMostRecentCreationDate(((AbstractActiveDirWrapper) dataNativeSystem).getMax(this.tableName));
+			System.out.println(this.group.getMostRecentCreationDate());
 			this.group.setMeanCreationDate(((AbstractActiveDirWrapper) dataNativeSystem).getMean(this.tableName));
+			System.out.println(this.group.getMeanCreationDate());
+			this.group.setRole(((AbstractActiveDirWrapper) dataNativeSystem).getRole(this.tableName));
+			System.out.println(this.group.getRole());
 			((AbstractActiveDirWrapper) dataNativeSystem).checkProfil(this.group);
 		}
 	}

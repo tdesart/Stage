@@ -10,6 +10,7 @@ public class AD_S31 extends AbstractRule{
 	private SearchResult user;
 	private String userManager;
 	private String userName;
+	private String role;
 
 	public AD_S31(SearchResult user) {
 		super();
@@ -21,6 +22,7 @@ public class AD_S31 extends AbstractRule{
 		try {
 			this.userManager = (String) user.getAttributes().get("manager").get();
 			this.userName = (String) user.getAttributes().get("distinguishedName").get();
+			this.role = (String) user.getAttributes().get("extensionAttribute4").get();
 		} catch (NamingException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -42,7 +44,7 @@ public class AD_S31 extends AbstractRule{
 
 	@Override
 	protected void actions() {
-		((AbstractActiveDirWrapper) dataNativeSystem).findSuggestion(this.userManager,this.userName);
+		((AbstractActiveDirWrapper) dataNativeSystem).findSuggestion(this.userManager,this.userName,this.role);
 		
 	}
 

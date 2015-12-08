@@ -861,9 +861,12 @@ public final class MySQLOperations extends GenericDataAccessOperations {
 	 */
 
 	public void createTable(final int conn) {
-		String q = "CREATE  TABLE IF NOT EXISTS`Groupe` (" + "`idGroupe` INT NOT NULL AUTO_INCREMENT ,"
-				+ "`GroupeName` VARCHAR(45) NOT NULL ," + "`Result` TINYINT(1)  NOT NULL ,"
-				+ "PRIMARY KEY (`idGroupe`) );";
+		String q = "CREATE  TABLE IF NOT EXISTS `Group_delete` ("
+				+ "`idGroup_delete` INT NOT NULL AUTO_INCREMENT ,"
+				+ "`name` VARCHAR(256) NOT NULL ,"
+				+ "`delete` TINYINT(1)  NOT NULL ,"
+				+ "`reason` VARCHAR(256) NULL ,"
+				+ "PRIMARY KEY (`idGroup_delete`) )";
 		executeUpdate(conn, q);
 	}
 
@@ -877,8 +880,8 @@ public final class MySQLOperations extends GenericDataAccessOperations {
 		return getLongFromSelect(conn, q);
 	}
 
-	public void insertIntoGroupe(final int conn, String groupeName, boolean result) {
-		String q = "INSERT INTO Groupe (GroupeName, Result) VALUES ('" + groupeName + "'," + result + ")";
+	public void insertInto(final int conn, String groupeName, boolean result,String reason) {
+		String q = "INSERT INTO `Group_delete` (name, `delete`, reason ) VALUES ('" + groupeName + "'," + result + ",'"+reason+"')";
 		executeUpdate(conn, q);
 	}
 
@@ -890,7 +893,8 @@ public final class MySQLOperations extends GenericDataAccessOperations {
 	public void createTable(int conn, String tableName) {
 		String q = "CREATE  TABLE IF NOT EXISTS `"+tableName+"` (" 
 				+ "Name VARCHAR(256) NOT NULL ," 
-				+ "Age BIGINT NULL)";
+				+ "Age BIGINT NULL ,"
+				+ "Role VARCHAR(45) NULL)";
 		executeUpdate(conn, q);
 	}
 
@@ -906,8 +910,8 @@ public final class MySQLOperations extends GenericDataAccessOperations {
 		
 	}
 	
-	public void insertInto(int conn, String tableName, String s, String s1) {
-		String q = "INSERT INTO `"+tableName+"` (Name, Age) VALUES ('"+s+"',"+s1+")";
+	public void insertInto(int conn, String tableName, String s, String s1, String role) {
+		String q = "INSERT INTO `"+tableName+"` (Name, Age,Role) VALUES ('"+s+"',"+s1+",'"+role+"')";
 		executeUpdate(conn, q);
 		
 	}
@@ -951,13 +955,23 @@ public final class MySQLOperations extends GenericDataAccessOperations {
 		return getLongFromSelect(conn, q);
 	}
 	
+	public String getRole(final int conn, String tableName){
+		String q = "SELECT Role from("
+				+ "SELECT COUNT(Role)AS nbr_doublon, Role "
+				+ "FROM     `"+tableName+"` "
+				+ "GROUP BY Role "
+				+ "ORDER BY nbr_doublon DESC "
+				+ "LIMIT 1) as T";
+		return getStringFromSelect(conn, q);
+	}
+	
 	public void createNewProfile(final int conn ,Profil group){
 		String[] t= group.getTopGroup();
 		String q = "INSERT INTO TopGroups (Group1, Group2, Group3) VALUES('"+t[0]+"','"+t[1]+"','"+t[2]+"')";
 		executeUpdate(conn,q);
-		q = "INSERT INTO Profil (manager,activity,size,topGroups) VALUES ('"+group.getManager()+"',0,"+group.getSizeMeasure()+",LAST_INSERT_ID())";
+		q = "INSERT INTO Profil (manager,activity,size,role,topGroups) VALUES ('"+group.getManager()+"',0,"+group.getSizeMeasure()+",'"+group.getRole()+"',LAST_INSERT_ID())";
 		executeUpdate(conn, q);
-		q = "INSERT INTO Groups (name,whenCreated,nbrMembers,whenChanged,manager,ageMembers,youngestMember,profil) VALUES ("
+		q = "INSERT INTO Groups (name,whenCreated,nbrMembers,whenChanged,manager,ageMembers,youngestMember,role,profil) VALUES ("
 				+ "'"+group.getDistinguishedName()+"',"
 				+ group.getWhenCreated()+","
 				+ group.getMembersSize()+","
@@ -965,6 +979,7 @@ public final class MySQLOperations extends GenericDataAccessOperations {
 				+ "'"+group.getManager()+"',"
 				+ group.getMeanCreationDate()+","
 				+ group.getMostRecentCreationDate()+","
+				+ "'"+group.getRole()+"',"
 				+ "LAST_INSERT_ID())";
 		executeUpdate(conn,q);
 	}
@@ -974,6 +989,7 @@ public final class MySQLOperations extends GenericDataAccessOperations {
 				+ "FROM Profil,TopGroups "
 				+ "WHERE manager = '"+group.getManager()+"' AND "
 				+ "topGroups = idTopGroups AND "
+				+ "role = '"+group.getRole()+"' AND "
 				+ "size = "+group.getSizeMeasure()+" AND "				
 				+ "'"+group.getTopGroup()[0] +"' IN (Group1,Group2,Group3) AND "
 				+ "'"+group.getTopGroup()[1] +"' IN (Group1,Group2,Group3) AND "
@@ -982,7 +998,7 @@ public final class MySQLOperations extends GenericDataAccessOperations {
 	}
 	
 	public void insertGroup(final int conn, Profil group, int idProfil){
-		String q = "INSERT INTO Groups (name,whenCreated,nbrMembers,whenChanged,manager,ageMembers,youngestMember,profil) VALUES ("
+		String q = "INSERT INTO Groups (name,whenCreated,nbrMembers,whenChanged,manager,ageMembers,youngestMember,role,profil) VALUES ("
 				+ "'"+group.getDistinguishedName()+"',"
 				+ group.getWhenCreated()+","
 				+ group.getMembersSize()+","
@@ -990,6 +1006,7 @@ public final class MySQLOperations extends GenericDataAccessOperations {
 				+ "'"+group.getManager()+"',"
 				+ group.getMeanCreationDate()+","
 				+ group.getMostRecentCreationDate()+","
+				+ "'"+group.getRole()+"',"
 				+ idProfil+")";
 		executeUpdate(conn,q);
 	}
@@ -1009,6 +1026,7 @@ public final class MySQLOperations extends GenericDataAccessOperations {
 				+ "`activity` int(11) NOT NULL,"
 				+ "`size` int(11) NOT NULL,"
 				+ "`topGroups` int(11) NOT NULL,"
+				+ "`role` varchar(45) NOT NULL,"
 				+ "PRIMARY KEY (`idProfil`),"
 				+ "KEY `topGroup` (`topGroups`),"
 				+ "CONSTRAINT `topGroup` FOREIGN KEY (`topGroups`) REFERENCES `TopGroups` (`idTopGroups`) ON DELETE NO ACTION ON UPDATE NO ACTION"
@@ -1022,6 +1040,7 @@ public final class MySQLOperations extends GenericDataAccessOperations {
 			+ "`manager` varchar(256) NOT NULL,"
 			+ "`ageMembers` bigint(20) NOT NULL,"
 			+ "`youngestMember` bigint(20) NOT NULL,"
+			+ "`role` varchar(45) NOT NULL,"
 			+ "`profil` int(11) NOT NULL,"
 			+ "PRIMARY KEY (`name`),"
 			+ "KEY `profil` (`profil`),"
@@ -1040,6 +1059,15 @@ public final class MySQLOperations extends GenericDataAccessOperations {
 		executeUpdate(conn, q);
 	}
 	
+	public ResultSet findProfil(final int conn, String manager, String role){
+		String q = "SELECT Group1,Group2,Group3 "
+				+ "FROM `Profil`,`TopGroups` "
+				+ "WHERE manager = '"+manager+"' AND role = '"+role+"' AND "
+				+ "topGroups = idTopGroups "
+				+ "ORDER BY size DESC";
+		return getArrayFromSelect(conn, q);
+	}
+	
 	public ResultSet findProfil(final int conn, String manager){
 		String q = "SELECT Group1,Group2,Group3 "
 				+ "FROM `Profil`,`TopGroups` "
@@ -1054,18 +1082,19 @@ public final class MySQLOperations extends GenericDataAccessOperations {
 				+ "`idSuggestion` INT NOT NULL AUTO_INCREMENT ,"
 				+ "`name` VARCHAR(256) NULL ,"
 				+ "`groupe` VARCHAR(256) NULL ,"
+				+ "`reason` VARCHAR(256) NULL ,"
 				+ "PRIMARY KEY (`idSuggestion`) );";
 		executeUpdate(conn, q);
 	}
 	
-	public void insertSuggestion(final int conn, HashSet<String> hs, String userName){
-		String q = "INSERT INTO `Suggestion` (`name`, `groupe`) "
+	public void insertSuggestion(final int conn, HashSet<String> hs, String userName, String reason){
+		String q = "INSERT INTO `Suggestion` (`name`, `groupe`,`reason`) "
 				+ "VALUES ";
 		Iterator<String> i = hs.iterator();
 		while(i.hasNext()){
-			q = q + "('"+userName+"','"+i.next()+"'),";
+			q = q + "('"+userName+"','"+i.next()+"','"+reason+"'),";
 		}
-		q=q+"('"+userName+"','No Suggestion');";
+		q=q+"('"+userName+"','No Suggestion', '');";
 		executeUpdate(conn, q);
 		q = "DELETE FROM Suggestion "
 				+ "WHERE`name` in ( "
@@ -1080,7 +1109,12 @@ public final class MySQLOperations extends GenericDataAccessOperations {
 	}
 	
 	public ResultSet getSuggestion(final int conn){
-		String q = "SELECT `Suggestion`.`name`, `Suggestion`.`name`,`Suggestion`.`groupe` FROM `active_dir_system`.`Suggestion`";
+		String q = "SELECT `Suggestion`.`name`, `Suggestion`.`reason`,`Suggestion`.`groupe` FROM `active_dir_system`.`Suggestion`";
+		return getArrayFromSelect(conn, q);
+	}
+
+	public ResultSet getGroupDelete(int conn) {
+		String q = "SELECT name,reason FROM Group_delete WHERE `delete` = TRUE";
 		return getArrayFromSelect(conn, q);
 	}
 	

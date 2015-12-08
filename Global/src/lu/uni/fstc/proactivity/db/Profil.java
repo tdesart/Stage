@@ -21,6 +21,7 @@ public class Profil {
 	private String cn;
 	private ArrayList<SearchResult> members;
 	private int number;
+	private String role;
 	
 	private SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMddHHmmSS");
 	
@@ -36,6 +37,12 @@ public class Profil {
 				this.number = i;
 			} catch (ParseException | NamingException e) {
 				e.printStackTrace();
+			}
+			try {
+				this.manager = attrs.get("managedBy").get().toString();
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				this.manager="";
 			}
 		}
 			
@@ -58,7 +65,10 @@ public class Profil {
 	}
 
 	public void setManager(String manager) {
-		this.manager = manager;
+		if(this.manager.equals("")){
+			this.manager = manager;
+		}
+			
 	}
 
 	public String getDistinguishedName() {
@@ -118,6 +128,14 @@ public class Profil {
 
 	public void setMeanCreationDate(long meanCreationDate) {
 		MeanCreationDate = meanCreationDate;
+	}
+
+	public String getRole() {
+		return role;
+	}
+
+	public void setRole(String role) {
+		this.role = role;
 	}
 
 }

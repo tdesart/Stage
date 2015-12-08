@@ -62,7 +62,7 @@ public class AD_R001 extends AbstractRule {
 	protected boolean rulesGeneration() {
 		// TODO Auto-generated method stub
 		if(super.getActivated()){
-			for(int i = 0; i<25; i++){
+			for(int i = 0; i<50; i++){
 				if(this.listUser.hasNext())
 					createRule(new AD_InsertInto(this.listUser.next(),this.group));
 			}
