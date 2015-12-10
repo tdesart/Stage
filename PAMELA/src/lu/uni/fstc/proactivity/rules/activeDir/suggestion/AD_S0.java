@@ -20,7 +20,7 @@ public class AD_S0 extends AbstractRule {
 		super();
 		GregorianCalendar calendar = new GregorianCalendar();
 		calendar.setTime(new Date());
-		calendar.add(Calendar.DATE, -5);
+		calendar.add(Calendar.DATE, -2);
 		this.day = this.ldapDateFormat.format(calendar.getTime());
 	}
 

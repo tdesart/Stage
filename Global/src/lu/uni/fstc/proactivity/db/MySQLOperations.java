@@ -1114,7 +1114,7 @@ public final class MySQLOperations extends GenericDataAccessOperations {
 	}
 
 	public ResultSet getGroupDelete(int conn) {
-		String q = "SELECT name,reason FROM Group_delete WHERE `delete` = TRUE";
+		String q = "SELECT name,reason FROM Group_delete WHERE `delete` = TRUE AND name NOT IN (SELECT name FROM Exclusion_delete)";
 		return getArrayFromSelect(conn, q);
 	}
 	

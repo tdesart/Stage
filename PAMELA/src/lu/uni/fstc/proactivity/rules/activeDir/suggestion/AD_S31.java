@@ -23,9 +23,9 @@ public class AD_S31 extends AbstractRule{
 			this.userManager = (String) user.getAttributes().get("manager").get();
 			this.userName = (String) user.getAttributes().get("distinguishedName").get();
 			this.role = (String) user.getAttributes().get("extensionAttribute4").get();
-		} catch (NamingException e) {
+		} catch (Exception e) {
 			// TODO Auto-generated catch block
-			e.printStackTrace();
+			this.role ="noRole";
 		}
 		
 	}

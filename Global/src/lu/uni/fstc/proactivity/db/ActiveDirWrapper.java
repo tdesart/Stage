@@ -176,7 +176,9 @@ public class ActiveDirWrapper extends AbstractActiveDirWrapper {
 
 	@Override
 	public void findSuggestion(String manager, String userName, String role) {
-		ResultSet rs = mso.findProfil(conn, manager,role);
+		ResultSet rs = null;
+		if(role.equals("noRole"))
+			 rs = mso.findProfil(conn, manager,role);
 		LinkedHashSet<String> hs = new LinkedHashSet<String>();
 		try {
 			while(rs.next()){

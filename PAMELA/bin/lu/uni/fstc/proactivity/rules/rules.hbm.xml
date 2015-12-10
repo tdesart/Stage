@@ -174,16 +174,7 @@
 		<joined-subclass name="lu.uni.fstc.proactivity.rules.activeDir.AD_R001" table="Rules_AD_R001">
 			<key                            column="rule_id" />
 		</joined-subclass>
-		<joined-subclass name="lu.uni.fstc.proactivity.rules.activeDir.AD_R002" table="Rules_AD_R002">
-			<key                            column="rule_id" />
-		</joined-subclass>
 		<joined-subclass name="lu.uni.fstc.proactivity.rules.activeDir.AD_R003" table="Rules_AD_R003">
-			<key                            column="rule_id" />
-		</joined-subclass> 
-		<joined-subclass name="lu.uni.fstc.proactivity.rules.activeDir.testMessageRule" table="Rules_testMessageRule">
-			<key                            column="rule_id" />
-		</joined-subclass> 
-		<joined-subclass name="lu.uni.fstc.proactivity.rules.activeDir.AD_R1" table="Rules_AD_R1">
 			<key                            column="rule_id" />
 		</joined-subclass> 
 		<joined-subclass name="lu.uni.fstc.proactivity.rules.activeDir.AD_CreateTableGroup" table="Rules_AD_CreateTableGroup">
@@ -247,6 +238,9 @@
 			<key                            column="rule_id" />
 		</joined-subclass>
 		<joined-subclass name="lu.uni.fstc.proactivity.rules.activeDir.Delete.AD_D32" table="Rules_AD_D32">
+			<key                            column="rule_id" />
+		</joined-subclass>
+		<joined-subclass name="lu.uni.fstc.proactivity.rules.activeDir.testRules001" table="Rules_testRules001">
 			<key                            column="rule_id" />
 		</joined-subclass>
 	</class>

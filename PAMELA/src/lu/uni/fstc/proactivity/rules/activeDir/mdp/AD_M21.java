@@ -4,10 +4,10 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
 
-import javax.naming.NamingException;
 import javax.naming.directory.SearchResult;
 
 import lu.uni.fstc.proactivity.rules.AbstractRule;
+import lu.uni.fstc.proactivity.rules.activeDir.suggestion.Mail;
 
 public class AD_M21 extends AbstractRule {
 	
@@ -16,6 +16,8 @@ public class AD_M21 extends AbstractRule {
 	private Date pwdLastSet;
 	private GregorianCalendar calendar = new GregorianCalendar();
 	private String mail;
+	private long accountExpires;
+	private String displayName;
 	
 	/** Difference between Filetime epoch and Unix epoch (in ms). */
 	private static final long FILETIME_EPOCH_DIFF = 11644473600000L;
@@ -33,6 +35,8 @@ public class AD_M21 extends AbstractRule {
 			this.userAccountControl = Integer.parseInt(this.user.getAttributes().get("userAccountControl").get().toString());
 			this.pwdLastSet = new Date((Long.parseLong(this.user.getAttributes().get("pwdLastSet").get().toString())/FILETIME_ONE_MILLISECOND) - FILETIME_EPOCH_DIFF);
 			this.mail = this.user.getAttributes().get("distinguishedName").get().toString();
+			this.accountExpires = Long.parseLong(this.user.getAttributes().get("accountExpires").get().toString());
+			this.displayName = this.user.getAttributes().get("displayName").get().toString();
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			System.out.println(this.mail);
@@ -45,7 +49,7 @@ public class AD_M21 extends AbstractRule {
 	protected boolean activationGuards() {
 		this.calendar.setTime(this.pwdLastSet);
 		calendar.add(Calendar.DATE, 180);
-		return calendar.getTime().before(new Date());
+		return (calendar.getTimeInMillis()<(System.currentTimeMillis()) && (this.accountExpires > System.currentTimeMillis() || this.accountExpires == 0));
 	}
 
 	@Override
@@ -56,7 +60,30 @@ public class AD_M21 extends AbstractRule {
 
 	@Override
 	protected void actions() {
-		System.out.println("\t\t"+this.mail);
+		Long today = System.currentTimeMillis();
+		Long pwd = calendar.getTimeInMillis();
+		if((pwd + 1000*60*60*24*14) > today ){
+			System.out.println("\t\t"+this.mail+" moins de 30 jours");
+			String s = makeText(this.displayName ,30);
+			new Mail("thomas.desart@ext.uni.lu", "Password expiration", s).send();
+		}
+		else if ((pwd + 1000*60*60*24*36) > today){
+			System.out.println("\t\t"+this.mail+" moins de 15 jours");
+			String s = makeText(this.displayName ,15);
+			new Mail("thomas.desart@ext.uni.lu", "Password expiration", s).send();
+		}
+		else if ((pwd + 1000*60*60*24*39) > today){
+			System.out.println("\t\t"+this.mail+" moins de 3 jours");
+			String s = makeText(this.displayName ,3);
+			new Mail("thomas.desart@ext.uni.lu", "Password expiration", s).send();
+		}
+		else if ((pwd + 1000*60*60*24*40) > today){
+			System.out.println("\t\t"+this.mail+" moins de 1 jours");
+			String s = makeText(this.displayName ,1);
+			new Mail("thomas.desart@ext.uni.lu", "Password expiration", s).send();
+		}
+		else
+			System.out.println("\t\t"+this.mail+" expiré");
 
 	}
 
@@ -71,5 +98,11 @@ public class AD_M21 extends AbstractRule {
 		// TODO Auto-generated method stub
 		return "\t\tAD_M21 rule";
 	}
-
+	
+	private String makeText(String name, int day){
+		String s = "Dear "+this.displayName+", <br><br>"
+				+ "Your password will expired within "+day+" days, we ask you to change it.<br><br>"
+				+ "Best regards.";
+		return s;
+	}
 }

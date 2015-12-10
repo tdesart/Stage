@@ -19,7 +19,7 @@
 		<link>
 			<name>logging.properties</name>
 			<type>1</type>
-			<location>C:/Program Files/Java/jdk1.6.0_29/jre/lib/logging.properties</location>
+			<location>C:/Program Files/Java/jdk1.8.0_65/jre/lib/logging.properties</location>
 		</link>
 	</linkedResources>
 </projectDescription>

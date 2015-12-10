@@ -9,7 +9,6 @@
 	<classpathentry kind="lib" path="C:/Users/thomas.desart/Desktop/workspace/mysql-connector-java-5.1.18/mysql-connector-java-5.1.18-bin.jar"/>
 	<classpathentry kind="lib" path="C:/Users/thomas.desart/Desktop/workspace/lib/FindBugs 2.0.2/annotations.jar"/>
 	<classpathentry kind="lib" path="C:/Users/thomas.desart/Desktop/workspace/Global/lib/jfreechart-1.0.13.jar"/>
-	<classpathentry kind="src" path="/testJNDI"/>
 	<classpathentry kind="lib" path="C:/Users/thomas.desart/Desktop/workspace/lib/javax.mail.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

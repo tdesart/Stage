@@ -18,7 +18,7 @@ public class AD_Group extends AbstractRule {
 
 	@Override
 	protected void dataAcquisition() {
-		this.listGroup = ((AbstractActiveDirWrapper) dataNativeSystem).search("OU=SecurityGroups,OU=Groups,DC=uni,DC=lux","(&(objectClass=group))");
+		this.listGroup = ((AbstractActiveDirWrapper) dataNativeSystem).search("OU=Useless groups,OU=SecurityGroups,OU=Groups,DC=uni,DC=lux","(&(objectClass=group))");
 	}
 
 	@Override

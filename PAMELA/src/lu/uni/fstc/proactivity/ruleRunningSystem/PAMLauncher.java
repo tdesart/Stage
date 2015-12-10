@@ -6,7 +6,7 @@ import lu.uni.fstc.proactivity.db.PAMDbWrapper;
 import lu.uni.fstc.proactivity.messaging.PamSockekServer;
 import lu.uni.fstc.proactivity.queue.Queue;
 import lu.uni.fstc.proactivity.rules.AbstractRule;
-import lu.uni.fstc.proactivity.rules.activeDir.suggestion.AD_S0;
+import lu.uni.fstc.proactivity.rules.activeDir.AD_Group;
 import lu.uni.fstc.proactivity.utils.Global;
 import lu.uni.fstc.proactivity.utils.Time;
 
@@ -136,9 +136,10 @@ public class PAMLauncher {
 		Global.logger.info("Creating initial rules!");
 		qm.currentQueue = new Queue<AbstractRule>();
 		
-		AbstractRule rule = new AD_S0();
-		//AbstractRule rule = new AD_Group();
-		//AbstractRule rule = new AD_D21("CN=FSTC_DeanSec,OU=SecurityGroups,OU=Groups,DC=uni,DC=lux");
+		//AbstractRule rule = new testRules001();
+		//AbstractRule rule = new AD_S0();
+		AbstractRule rule = new AD_Group();
+		//AbstractRule rule = new AD_M0();
 
 		rule.setEngine(qm);
 		rule.setDataEngine(dataEngine);
