@@ -46,7 +46,7 @@ public class AD_Parcours extends AbstractRule {
 				if(this.listGroup.hasNext()){
 					SearchResult x = this.listGroup.next();
 					createRule(new AD_D21(x));
-					//createRule(new AD_ProfilCreation(x,i+j));
+					createRule(new AD_ProfilCreation(x,i+j));
 				}
 			}
 			createRule(new AD_Parcours(this.listGroup,i+5));

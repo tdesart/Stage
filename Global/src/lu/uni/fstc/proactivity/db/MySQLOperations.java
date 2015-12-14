@@ -1,5 +1,6 @@
 package lu.uni.fstc.proactivity.db;
 
+import java.math.BigInteger;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -916,6 +917,17 @@ public final class MySQLOperations extends GenericDataAccessOperations {
 		
 	}
 	
+	public void insertInto(int conn, String tableName, String s, String s1) {
+		deleteFrom(conn, tableName, s);
+		String q = "INSERT INTO `"+tableName+"` (Name, Age) VALUES ('"+s+"',"+s1+")";
+		executeUpdate(conn, q);
+	}
+	
+	public void deleteFrom(int conn, String tableName, String name){
+		String q = "DELETE FROM `"+tableName+"`WHERE name ='"+name+"'";
+		executeUpdate(conn, q);
+	}
+	
 	public String getManager(final int conn, String tableName){
 		String q = "SELECT Name from("
 				+ "SELECT COUNT(Name)AS nbr_doublon, Name "
@@ -937,6 +949,7 @@ public final class MySQLOperations extends GenericDataAccessOperations {
 		String q = "SELECT Name from("
 				+ "SELECT COUNT(Name)AS nbr_doublon, Name "
 				+ "FROM     `"+tableName+"` "
+				+ "WHERE Name NOT IN (SELECT name FROM Exclusion_suggestion)"
 				+ "GROUP BY Name "
 				+ "ORDER BY nbr_doublon DESC "
 				+ "LIMIT 3) as T";
@@ -1113,9 +1126,19 @@ public final class MySQLOperations extends GenericDataAccessOperations {
 		return getArrayFromSelect(conn, q);
 	}
 
-	public ResultSet getGroupDelete(int conn) {
+	public ResultSet getGroupDelete(final int conn) {
 		String q = "SELECT name,reason FROM Group_delete WHERE `delete` = TRUE AND name NOT IN (SELECT name FROM Exclusion_delete)";
 		return getArrayFromSelect(conn, q);
+	}
+	
+	public ResultSet getExpiredPassword(final int conn){
+		String q = "SELECT name FROM Password30 WHERE name <> 'Finish'";
+		return getArrayFromSelect(conn, q);
+	}
+
+	public long getFrom(int conn, String tableName, String name) {
+		String q = "SELECT age FROM `"+tableName+"` WHERE name = '"+name+"'";
+		return getLongFromSelect(conn, q);
 	}
 	
 	

@@ -146,49 +146,6 @@ public class PAMLauncher {
 		rule.setDataNativeSystem(dataNativeSystem);
 		qm.currentQueue.enqueue(rule);
 		
-//		rule = new testMessageRule();
-//		rule.setEngine(qm);
-//		rule.setDataEngine(dataEngine);
-//		rule.setDataNativeSystem(dataNativeSystem);
-//		qm.currentQueue.enqueue(rule);
-		
-		/*// add one rule (MTA001m) to the queue 
-		AbstractRule rule = new MTA001m(0);
-		rule.setEngine(qm);
-		rule.setDataNativeSystem(dataNativeSystem);
-		rule.setDataEngine(dataEngine);
-		qm.currentQueue.enqueue(rule);
-
-		rule = new MTA002am(0, 0);
-		rule.setEngine(qm);
-		rule.setDataNativeSystem(dataNativeSystem);
-		rule.setDataEngine(dataEngine);
-		qm.currentQueue.enqueue(rule);
-
-		rule = new MTA002cm(0, 0);
-		rule.setEngine(qm);
-		rule.setDataNativeSystem(dataNativeSystem);
-		rule.setDataEngine(dataEngine);
-		qm.currentQueue.enqueue(rule);
-
-		rule = new MTA002bmPPR(0, 0);
-		rule.setEngine(qm);
-		rule.setDataNativeSystem(dataNativeSystem);
-		rule.setDataEngine(dataEngine);
-		qm.currentQueue.enqueue(rule);
-
-		rule = new MTA002bmPPR(0, 0);
-		rule.setEngine(qm);
-		rule.setDataNativeSystem(dataNativeSystem);
-		rule.setDataEngine(dataEngine);
-		qm.currentQueue.enqueue(rule);
-
-		rule = new MTA008m(0, 0);
-		rule.setEngine(qm);
-		rule.setDataNativeSystem(dataNativeSystem);
-		rule.setDataEngine(dataEngine);
-		qm.currentQueue.enqueue(rule);*/
-
 	}
 	
 	/**

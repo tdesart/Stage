@@ -1,5 +1,6 @@
 package lu.uni.fstc.proactivity.db;
 
+import java.math.BigInteger;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -75,6 +76,8 @@ public class ActiveDirWrapper extends AbstractActiveDirWrapper {
 		mso.insertInto(conn, groupeName, result,reason);
 		
 	}
+	
+	
 
 	@Override
 	public void dropTable(String tableName) {
@@ -103,6 +106,14 @@ public class ActiveDirWrapper extends AbstractActiveDirWrapper {
 	public void insertInto(String tableName, String s,String s1,String role) {
 		mso.insertInto(conn, tableName, s, s1,role);
 		
+	}
+	
+	public void insertInto(String tableName, String s,String s1) {
+		mso.insertInto(conn, tableName, s, s1);
+	}
+	
+	public void deleteFrom(String tableName, String name){
+		mso.deleteFrom(conn, tableName, name);
 	}
 	
 	public String getManager(String tableName){
@@ -177,11 +188,11 @@ public class ActiveDirWrapper extends AbstractActiveDirWrapper {
 	@Override
 	public void findSuggestion(String manager, String userName, String role) {
 		ResultSet rs = null;
-		if(role.equals("noRole"))
-			 rs = mso.findProfil(conn, manager,role);
 		LinkedHashSet<String> hs = new LinkedHashSet<String>();
+		if(!role.equals("noRole"))
+			 rs = mso.findProfil(conn, manager,role);
 		try {
-			while(rs.next()){
+			while(rs.next() && !rs.equals(null)){
 				hs.add((rs.getString("Group1")));
 				hs.add((rs.getString("Group2")));
 				hs.add((rs.getString("Group3")));
@@ -274,6 +285,26 @@ public class ActiveDirWrapper extends AbstractActiveDirWrapper {
 			e.printStackTrace();
 		}
 		return  "<b>"+i+"</b> groups have been detected as useless :<br><ul>"+result+"<ul>";
+	}
+	
+	public String getExpiredPassword(){
+		ResultSet rs = mso.getExpiredPassword(conn);
+		String result="";
+		int i = 0;
+		try {
+			while(rs.next()){
+				i++;
+				result+="&nbsp;&nbsp;- "+rs.getString("name")+"<br>";
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return "<b>"+i+"</b> users have an expired password since at least 30 days <br><br>"+result;
+	}
+	
+	public long getFrom(String tableName, String name){
+		return mso.getFrom(conn,tableName,name);
 	}
 
 }

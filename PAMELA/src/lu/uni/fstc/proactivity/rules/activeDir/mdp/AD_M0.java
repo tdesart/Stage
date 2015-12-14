@@ -26,24 +26,26 @@ public class AD_M0 extends AbstractRule {
 	@Override
 	protected boolean activationGuards() {
 		// TODO Auto-generated method stub
-		return false;
+		return true;
 	}
 
 	@Override
 	protected boolean conditions() {
 		// TODO Auto-generated method stub
-		return false;
+		return true;
 	}
 
 	@Override
 	protected void actions() {
-		// TODO Auto-generated method stub
+		((AbstractActiveDirWrapper) dataNativeSystem).createTable("Password30");
+		((AbstractActiveDirWrapper) dataNativeSystem).createTable("Password");
 
 	}
 
 	@Override
 	protected boolean rulesGeneration() {
 		createRule(new AD_M1(this.listUser.iterator()));
+		createRule(new AD_M22());
 		return false;
 	}
 

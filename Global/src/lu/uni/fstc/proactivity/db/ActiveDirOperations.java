@@ -42,8 +42,8 @@ public final class ActiveDirOperations {
 		env.put(Context.INITIAL_CONTEXT_FACTORY, "com.sun.jndi.ldap.LdapCtxFactory");
 		env.put(Context.PROVIDER_URL, "ldaps://duchesse.uni.lux:636");//"ldap://192.168.60.2:389");
 		env.put(Context.SECURITY_AUTHENTICATION, "simple");
-		env.put(Context.SECURITY_PRINCIPAL, "thomas.desart@uni.lux");//"cn=Administrator,cn=Users,dc=demo,dc=com");
-		env.put(Context.SECURITY_CREDENTIALS,"yfphpa7J");// "Musique2015$");
+		env.put(Context.SECURITY_PRINCIPAL, "proactive.ad@uni.lux");//"cn=Administrator,cn=Users,dc=demo,dc=com");
+		env.put(Context.SECURITY_CREDENTIALS,"Pr04ct1v3$");// "Musique2015$");
 		try {
 			// Create the initial context
 			LdapContext ctx = new InitialLdapContext(env,null);

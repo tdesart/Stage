@@ -20,7 +20,7 @@ public class AD_S0 extends AbstractRule {
 		super();
 		GregorianCalendar calendar = new GregorianCalendar();
 		calendar.setTime(new Date());
-		calendar.add(Calendar.DATE, -2);
+		calendar.add(Calendar.DATE, -1);
 		this.day = this.ldapDateFormat.format(calendar.getTime());
 	}
 
@@ -51,7 +51,7 @@ public class AD_S0 extends AbstractRule {
 		if(getActivated())
 			createRule(new AD_S1("Suggestion",this.listUser));
 		else
-			System.out.println("No suggestion");
+			System.out.println("No new user detected");
 		return true;
 	}
 

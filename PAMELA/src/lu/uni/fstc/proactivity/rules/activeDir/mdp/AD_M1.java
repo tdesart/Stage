@@ -4,6 +4,7 @@ import java.util.Iterator;
 
 import javax.naming.directory.SearchResult;
 
+import lu.uni.fstc.proactivity.db.AbstractActiveDirWrapper;
 import lu.uni.fstc.proactivity.rules.AbstractRule;
 import lu.uni.fstc.proactivity.rules.activeDir.AD_InsertInto;
 import lu.uni.fstc.proactivity.rules.activeDir.AD_R001;
@@ -49,6 +50,8 @@ public class AD_M1 extends AbstractRule {
 			}
 			createRule(new AD_M1(this.listUser));
 		}
+		else 
+			((AbstractActiveDirWrapper) dataNativeSystem).insertInto("Password30", "Finish", null, null);
 		return true;
 	}
 

@@ -231,6 +231,9 @@
 		<joined-subclass name="lu.uni.fstc.proactivity.rules.activeDir.mdp.AD_M21" table="Rules_AD_M21">
 			<key                            column="rule_id" />
 		</joined-subclass>
+		<joined-subclass name="lu.uni.fstc.proactivity.rules.activeDir.mdp.AD_M22" table="Rules_AD_M22">
+			<key                            column="rule_id" />
+		</joined-subclass>
 		<joined-subclass name="lu.uni.fstc.proactivity.rules.activeDir.Delete.AD_D21" table="Rules_AD_D21">
 			<key                            column="rule_id" />
 		</joined-subclass>

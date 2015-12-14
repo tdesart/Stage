@@ -1,5 +1,6 @@
 package lu.uni.fstc.proactivity.db;
 
+import java.math.BigInteger;
 import java.util.ArrayList;
 import java.util.HashSet;
 
@@ -43,6 +44,10 @@ public abstract class AbstractActiveDirWrapper extends AbstractHostDataAccessWra
 		
 	public abstract void insertInto(String tableName,String s, String s1, String role);
 	
+	public abstract void insertInto(String tableName, String s,String s1);
+	
+	public abstract void deleteFrom(String tableName, String name);
+	
 	public abstract String getManager(String tableName);
 	
 	public abstract boolean getFinish(String tableName);
@@ -70,5 +75,9 @@ public abstract class AbstractActiveDirWrapper extends AbstractHostDataAccessWra
 	public abstract String getSuggestion();
 
 	public abstract String getGroupDelete() ;
+	
+	public abstract String getExpiredPassword();
+	
+	public abstract long getFrom(String tableName, String name);
 
 }
