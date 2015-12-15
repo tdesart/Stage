@@ -6,7 +6,9 @@ import lu.uni.fstc.proactivity.db.PAMDbWrapper;
 import lu.uni.fstc.proactivity.messaging.PamSockekServer;
 import lu.uni.fstc.proactivity.queue.Queue;
 import lu.uni.fstc.proactivity.rules.AbstractRule;
-import lu.uni.fstc.proactivity.rules.activeDir.AD_Group;
+import lu.uni.fstc.proactivity.rules.activeDir.AD_G;
+import lu.uni.fstc.proactivity.rules.activeDir.mdp.AD_M;
+import lu.uni.fstc.proactivity.rules.activeDir.suggestion.AD_S;
 import lu.uni.fstc.proactivity.utils.Global;
 import lu.uni.fstc.proactivity.utils.Time;
 
@@ -136,11 +138,20 @@ public class PAMLauncher {
 		Global.logger.info("Creating initial rules!");
 		qm.currentQueue = new Queue<AbstractRule>();
 		
-		//AbstractRule rule = new testRules001();
-		//AbstractRule rule = new AD_S0();
-		AbstractRule rule = new AD_Group();
-		//AbstractRule rule = new AD_M0();
 
+		AbstractRule rule = new AD_S();
+		rule.setEngine(qm);
+		rule.setDataEngine(dataEngine);
+		rule.setDataNativeSystem(dataNativeSystem);
+		qm.currentQueue.enqueue(rule);
+		
+		rule = new AD_M();
+		rule.setEngine(qm);
+		rule.setDataEngine(dataEngine);
+		rule.setDataNativeSystem(dataNativeSystem);
+		qm.currentQueue.enqueue(rule);
+		
+		rule = new AD_G();
 		rule.setEngine(qm);
 		rule.setDataEngine(dataEngine);
 		rule.setDataNativeSystem(dataNativeSystem);

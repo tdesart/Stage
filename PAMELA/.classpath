@@ -5,10 +5,10 @@
 	<classpathentry combineaccessrules="false" kind="src" path="/Global"/>
 	<classpathentry combineaccessrules="false" kind="src" path="/Java-WebSocket"/>
 	<classpathentry combineaccessrules="false" kind="src" path="/JSON-java"/>
-	<classpathentry kind="lib" path="C:/Users/thomas.desart/Desktop/workspace/hibernate-distribution-3.6.8.Final/hibernate3.jar"/>
-	<classpathentry kind="lib" path="C:/Users/thomas.desart/Desktop/workspace/mysql-connector-java-5.1.18/mysql-connector-java-5.1.18-bin.jar"/>
-	<classpathentry kind="lib" path="C:/Users/thomas.desart/Desktop/workspace/lib/FindBugs 2.0.2/annotations.jar"/>
-	<classpathentry kind="lib" path="C:/Users/thomas.desart/Desktop/workspace/Global/lib/jfreechart-1.0.13.jar"/>
-	<classpathentry kind="lib" path="C:/Users/thomas.desart/Desktop/workspace/lib/javax.mail.jar"/>
+	<classpathentry kind="lib" path="C:/Users/proactive.ad/Desktop/workspace/lib/hibernate-distribution-3.6.8.Final/hibernate3.jar"/>
+	<classpathentry kind="lib" path="C:/Users/proactive.ad/Desktop/workspace/lib/mysql-connector-java-5.1.18/mysql-connector-java-5.1.18-bin.jar"/>
+	<classpathentry kind="lib" path="C:/Users/proactive.ad/Desktop/workspace/lib/FindBugs 2.0.2/annotations.jar"/>
+	<classpathentry kind="lib" path="C:/Users/proactive.ad/Desktop/workspace/lib/Global/lib/jfreechart-1.0.13.jar"/>
+	<classpathentry kind="lib" path="C:/Users/proactive.ad/Desktop/workspace/lib/javax.mail.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

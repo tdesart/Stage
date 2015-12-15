@@ -14,163 +14,6 @@
 			<generator class="increment" />
 		</id>
 
-		<!-- <joined-subclass name="lu.uni.fstc.proactivity.rules.moodleAssignments.MTA001m" table="Rules_MTA001m">
-			<key                            column="rule_id" />
-			<property name="last_assignment_id" column="assignment_id" />
-		</joined-subclass>
-
-		<joined-subclass name="lu.uni.fstc.proactivity.rules.moodleAssignments.MTA001mNTF001m" table="Rules_MTA001mNTF001m">
-			<key                            column="rule_id" />
-			<property name="assignment_id"  column="assignment_id" />
-			<property name="user_id"		column="user_id" />
-			<property name="sent"  			column="sent" />
-		</joined-subclass>
-
-		<joined-subclass name="lu.uni.fstc.proactivity.rules.moodleAssignments.MTA002am" table="Rules_MTA002am">
-			<key                            column="rule_id" />
-			<property name="assignment_id"  column="assignment_id" />
-			<property name="user_id"  		column="user_id" />
-			<property name="lastlevel"  	column="lastlevel" />
-			<property name="sent"  			column="sent" />
-		</joined-subclass>
-
-		<joined-subclass name="lu.uni.fstc.proactivity.rules.moodleAssignments.MTA002bmPPR" table="Rules_MTA002bmPPR">
-			<key                            column="rule_id" />
-			<property name="assignment_id"  column="assignment_id" />
-			<property name="user_id"  		column="user_id" />
-			<property name="lastdate"  		column="lastdate" />
-			<property name="lastlevel"		column="lastlevel" />
-			<property name="sent"			column="sent" />
-		</joined-subclass>
-
-		<joined-subclass name="lu.uni.fstc.proactivity.rules.moodleAssignments.MTA002bmRMD" table="Rules_MTA002bmRMD">
-			<key                            column="rule_id" />
-			<property name="assignment_id"  column="assignment_id" />
-			<property name="lastdate"		column="lastdate" />
-			<property name="sent"			column="sent" />
-		</joined-subclass>
-
-		<joined-subclass name="lu.uni.fstc.proactivity.rules.moodleAssignments.MTA002cm" table="Rules_MTA002cm">
-			<key                            column="rule_id" />
-			<property name="assignment_id"	column="assignment_id" />
-			<property name="user_id"		column="user_id" />
-			<property name="lastdeadline"	column="lastdeadline" />
-			<property name="sent"			column="sent" />
-		</joined-subclass>
-
-		<joined-subclass name="lu.uni.fstc.proactivity.rules.moodleAssignments.MTA004" table="Rules_MTA004">
-			<key                            column="rule_id" />
-			<property name="assignment_id"  column="assignment_id" />
-			<property name="previousAccess" column="previousAccess" />
-		</joined-subclass>
-
-		<joined-subclass name="lu.uni.fstc.proactivity.rules.moodleAssignments.MTA005a" table="Rules_MTA005a">
-			<key                            column="rule_id" />
-			<property name="last_event_id"  column="event_id" />
-		</joined-subclass>
-
-		<joined-subclass name="lu.uni.fstc.proactivity.rules.moodleAssignments.MTA005b" table="Rules_MTA005b">
-			<key                            column="rule_id" />
-			<property name="last_week_executed"  column="week" />
-		</joined-subclass>
-
-		<joined-subclass name="lu.uni.fstc.proactivity.rules.moodleAssignments.MTA005Stat" table="Rules_MTA005Stat">
-			<key                            column="rule_id" />
-			<property name="last_week_executed"  column="week" />
-			<property name="last_Assign_ID" column="assignment_id" />
-			<property name="last_ProAssign_ID"  column="pro_assign_id" />
-		</joined-subclass>
-
-		<joined-subclass name="lu.uni.fstc.proactivity.rules.moodleAssignments.MTA008m" table="Rules_MTA008m">
-			<key                            column="rule_id" />
-			<property name="assignment_id"  column="assignment_id" />
-			<property name="user_id"		column="user_id" />
-		</joined-subclass>
-
-		<joined-subclass name="lu.uni.fstc.proactivity.rules.moodleAssignments.NTF001m" table="Rules_NTF001m">
-			<key                            column="rule_id" />
-			<property name="assignment_id"  column="assignment_id" />
-			<property name="user_id"		column="user_id" />
-		</joined-subclass>
-
-		<joined-subclass name="lu.uni.fstc.proactivity.rules.moodleAssignments.NTF002" table="Rules_NTF002">
-			<key                            column="rule_id" />
-			<property name="assignment_id"	column="assignment_id" />
-		</joined-subclass>
-
-		<joined-subclass name="lu.uni.fstc.proactivity.rules.moodleAssignments.NTF003m" table="Rules_NTF003m">
-			<key                            column="rule_id" />
-			<property name="assignment_id"  column="assignment_id" />
-			<property name="user_id"		column="user_id" />
-			<property name="submission_level" column="submission_level" />
-		</joined-subclass>
-
-		<joined-subclass name="lu.uni.fstc.proactivity.rules.moodleAssignments.NTF004" table="Rules_NTF004">
-			<key                            column="rule_id" />
-			<property name="old_Assign_ID"  column="assignment_id" />
-			<property name="old_ProAssign_ID"  column="pro_assign_id" />
-		</joined-subclass>
-
-		<joined-subclass name="lu.uni.fstc.proactivity.rules.moodleAssignments.HNT001" table="Rules_HNT001">
-			<key                            column="rule_id" />
-			<property name="assignment_id"  column="assignment_id" />
-			<property name="previousAccess" column="previousAccess" />
-			<property name="thisAccess"     column="thisAccess" />
-		</joined-subclass>
-
-		<joined-subclass name="lu.uni.fstc.proactivity.rules.moodleAssignments.HNT003" table="Rules_HNT003">
-			<key                            column="rule_id" />
-			<property name="assignment_id"  column="assignment_id" />
-			<property name="previousAccess" column="previousAccess" />
-			<property name="thisAccess"     column="thisAccess" />
-		</joined-subclass>
-
-		<joined-subclass name="lu.uni.fstc.proactivity.rules.moodleAssignments.HNT004m" table="Rules_HNT004m">
-			<key                            column="rule_id" />
-			<property name="assignment_id"	column="assignment_id" />
-			<property name="hint_id"		column="hint_id" />
-		</joined-subclass>
-
-		<joined-subclass name="lu.uni.fstc.proactivity.rules.moodleAssignments.PPR001m" table="Rules_PPR001m">
-			<key							column="rule_id" />
-			<property name="assignment_id"	column="assignment_id" />
-			<property name="user_id"		column="user_id" />
-			<property name="submissionlevel" column="submissionlevel" />
-		</joined-subclass>
-
-		<joined-subclass name="lu.uni.fstc.proactivity.rules.moodleAssignments.PRB001m" table="Rules_PRB001m">
-			<key                            column="rule_id" />
-			<property name="assignment_id"	column="assignment_id" />
-			<property name="user_id"		column="user_id" />
-		</joined-subclass>
-
-		<joined-subclass name="lu.uni.fstc.proactivity.rules.moodleAssignments.RMD001m" table="Rules_RMD001m">
-			<key                            column="rule_id" />
-			<property name="assignment_id"	column="assignment_id" />
-		</joined-subclass>
-
-		<joined-subclass name="lu.uni.fstc.proactivity.rules.moodleAssignments.RMD002" table="Rules_RMD002">
-			<key                            column="rule_id" />
-			<property name="event_id"		column="event_id" />
-		</joined-subclass>
-
-		<joined-subclass name="lu.uni.fstc.proactivity.rules.moodleAssignments.RMD003" table="Rules_RMD003">
-			<key                            column="rule_id" />
-			<property name="student_id"		column="student_id" />
-		</joined-subclass>
-
-		<joined-subclass name="lu.uni.fstc.proactivity.rules.RuleMessageMoodle" table="Rules_MSG">
-			<key                            column="rule_id" />
-			<property name="user_id"        column="user_id" />
-			<property name="subject"        column="subject"   />
-			<property name="body"           column="text"    length="1000"/>
-			<property name="importance"     column="importance"/>
-		</joined-subclass>
-
-		<joined-subclass name="lu.uni.fstc.proactivity.rules.moodleAssignments.MTA_PushQuestion" table="Rules_PushQuestion">
-			<key                            column="rule_id" />
-		</joined-subclass> -->
-		
 		<joined-subclass name="lu.uni.fstc.proactivity.rules.activeDir.AD_R001" table="Rules_AD_R001">
 			<key                            column="rule_id" />
 		</joined-subclass>
@@ -231,6 +74,9 @@
 		<joined-subclass name="lu.uni.fstc.proactivity.rules.activeDir.mdp.AD_M21" table="Rules_AD_M21">
 			<key                            column="rule_id" />
 		</joined-subclass>
+		<joined-subclass name="lu.uni.fstc.proactivity.rules.activeDir.mdp.AD_M22" table="Rules_AD_M22">
+			<key                            column="rule_id" />
+		</joined-subclass>
 		<joined-subclass name="lu.uni.fstc.proactivity.rules.activeDir.Delete.AD_D21" table="Rules_AD_D21">
 			<key                            column="rule_id" />
 		</joined-subclass>
@@ -240,7 +86,13 @@
 		<joined-subclass name="lu.uni.fstc.proactivity.rules.activeDir.Delete.AD_D32" table="Rules_AD_D32">
 			<key                            column="rule_id" />
 		</joined-subclass>
-		<joined-subclass name="lu.uni.fstc.proactivity.rules.activeDir.testRules001" table="Rules_testRules001">
+		<joined-subclass name="lu.uni.fstc.proactivity.rules.activeDir.AD_G" table="Rules_AD_G">
+			<key                            column="rule_id" />
+		</joined-subclass>
+		<joined-subclass name="lu.uni.fstc.proactivity.rules.activeDir.mdp.AD_M" table="Rules_AD_M">
+			<key                            column="rule_id" />
+		</joined-subclass>
+		<joined-subclass name="lu.uni.fstc.proactivity.rules.activeDir.suggestion.AD_S" table="Rules_AD_S">
 			<key                            column="rule_id" />
 		</joined-subclass>
 	</class>
