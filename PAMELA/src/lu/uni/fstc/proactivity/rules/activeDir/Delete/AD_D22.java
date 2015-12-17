@@ -34,8 +34,7 @@ public class AD_D22 extends AbstractRule {
 	@Override
 	protected void actions() {
 		System.out.println(((AbstractActiveDirWrapper) dataNativeSystem).getGroupDelete());
-		//new Mail("siu.ProactiveGroup@uni.lu","Suppression",((AbstractActiveDirWrapper) dataNativeSystem).getGroupDelete().send();
-		new Mail("thomas.desart@ext.uni.lu","Suppression",((AbstractActiveDirWrapper) dataNativeSystem).getGroupDelete()).send();
+		new Mail("siu.ProactiveGroup@uni.lu","Suppression",((AbstractActiveDirWrapper) dataNativeSystem).getGroupDelete()).send();
 
 	}
 

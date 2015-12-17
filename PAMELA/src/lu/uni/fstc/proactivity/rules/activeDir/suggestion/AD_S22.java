@@ -32,9 +32,8 @@ public class AD_S22 extends AbstractRule {
 
 	@Override
 	protected void actions() {
-		//new Mail("siu.ProactiveGroup@uni.lu","Suggestion","<b>"+this.count+"</b> user(s) have been created : <br>"+((AbstractActiveDirWrapper) dataNativeSystem).getSuggestion()).send();
-		new Mail("thomas.desart@ext.uni.lu","Suggestion","<b>"+this.count+"</b> user(s) have been created : <br>"+((AbstractActiveDirWrapper) dataNativeSystem).getSuggestion()).send();
-
+		new Mail("siu.ProactiveGroup@uni.lu","Suggestion","<b>"+this.count+"</b> user(s) have been created : <br>"+((AbstractActiveDirWrapper) dataNativeSystem).getSuggestion()).send();
+		
 	}
 
 	@Override

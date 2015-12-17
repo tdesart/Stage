@@ -138,25 +138,27 @@ public class PAMLauncher {
 		Global.logger.info("Creating initial rules!");
 		qm.currentQueue = new Queue<AbstractRule>();
 		
-
+		// Démarre suggestion
 		AbstractRule rule = new AD_S();
 		rule.setEngine(qm);
 		rule.setDataEngine(dataEngine);
 		rule.setDataNativeSystem(dataNativeSystem);
 		qm.currentQueue.enqueue(rule);
 		
+		//Démarre mot de passe
 		rule = new AD_M();
 		rule.setEngine(qm);
 		rule.setDataEngine(dataEngine);
 		rule.setDataNativeSystem(dataNativeSystem);
 		qm.currentQueue.enqueue(rule);
 		
+		//Démarre profil de groupe et detection groupe inutile
 		rule = new AD_G();
 		rule.setEngine(qm);
 		rule.setDataEngine(dataEngine);
 		rule.setDataNativeSystem(dataNativeSystem);
 		qm.currentQueue.enqueue(rule);
-		
+//		
 	}
 	
 	/**

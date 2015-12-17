@@ -35,8 +35,7 @@ public class AD_M22 extends AbstractRule {
 	protected void actions() {
 		// TODO Auto-generated method stub
 		System.out.println("mail recap sent");
-		//new Mail("siu.ProactiveGroup@uni.lu", "Password Expiry Notification", ((AbstractActiveDirWrapper) dataNativeSystem).getExpiredPassword()).send();
-		new Mail("thomas.desart@ext.uni.lu", "Password Expiry Notification", ((AbstractActiveDirWrapper) dataNativeSystem).getExpiredPassword()).send();
+		new Mail("siu.ProactiveGroup@uni.lu", "Password Expiry Notification", ((AbstractActiveDirWrapper) dataNativeSystem).getExpiredPassword()).send();
 	}
 
 	@Override

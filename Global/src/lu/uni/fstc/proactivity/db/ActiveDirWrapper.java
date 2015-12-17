@@ -4,6 +4,7 @@ import java.math.BigInteger;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashSet;
 import java.util.LinkedHashSet;
 
@@ -104,12 +105,12 @@ public class ActiveDirWrapper extends AbstractActiveDirWrapper {
 	}
 	
 	public void insertInto(String tableName, String s,String s1,String role) {
-		mso.insertInto(conn, tableName, s, s1,role);
-		
+		mso.insertInto(conn, tableName, s, s1,role);		
 	}
 	
 	public void insertInto(String tableName, String s,String s1) {
 		mso.insertInto(conn, tableName, s, s1);
+		mso.insertInto(conn, "password_historic",s,s1, new Date().toString());
 	}
 	
 	public void deleteFrom(String tableName, String name){
@@ -279,6 +280,7 @@ public class ActiveDirWrapper extends AbstractActiveDirWrapper {
 			while(rs.next()){
 				i++;
 				result += "<li>"+rs.getString("name")+"</li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp"+rs.getString("reason")+"<br>" ;
+				result +="&nbsp;&nbsp;&nbsp;&nbsp;&nbspRemove-ADGroup '"+rs.getString("name")+"'<br>";
 			}
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
@@ -294,7 +296,7 @@ public class ActiveDirWrapper extends AbstractActiveDirWrapper {
 		try {
 			while(rs.next()){
 				i++;
-				result+="&nbsp;&nbsp;- "+rs.getString("name")+"<br>";
+				result+="&nbsp;&nbsp;- "+rs.getString("name")+" "+rs.getString("role")+"<br>";
 			}
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block

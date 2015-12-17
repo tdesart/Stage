@@ -19,6 +19,7 @@ public class AD_D21 extends AbstractRule {
 	private ArrayList<SearchResult> listMember;
 	private ArrayList<SearchResult> listMemberDisabled;
 	private ArrayList<SearchResult> listMemberAccountExpires;
+	private ArrayList<SearchResult> listGroup;
 	private int totalMembers;
 	private long whenChanged;
 	private String mail;
@@ -44,6 +45,7 @@ public class AD_D21 extends AbstractRule {
 		this.listMember = ((AbstractActiveDirWrapper) dataNativeSystem).search("OU=UNI-Users,DC=uni,DC=lux","(&(objectClass=person)(memberOf="+this.groupName+")(!(userAccountControl:1.2.840.113556.1.4.803:=2)))");
 		this.listMemberDisabled = ((AbstractActiveDirWrapper) dataNativeSystem).search("OU=UNI-Users,DC=uni,DC=lux","(&(objectClass=person)(memberOf="+this.groupName+")(userAccountControl:1.2.840.113556.1.4.803:=2))");
 		this.listMemberDisabled.addAll(((AbstractActiveDirWrapper) dataNativeSystem).search("OU=UNI-DisabledUsers,DC=uni,DC=lux","(&(objectClass=person)(memberOf="+this.groupName+"))"));
+		this.listGroup = (((AbstractActiveDirWrapper) dataNativeSystem).search("OU=Groups,DC=uni,DC=lux","(&(objectClass=group)(memberOf="+this.groupName+"))"));
 		this.listMemberAccountExpires = ((AbstractActiveDirWrapper) dataNativeSystem).search("OU=UNI-Users,DC=uni,DC=lux","(&(objectClass=person)(memberOf="+this.groupName+")(accountExpires<="+Long.toString(new Date().getTime())+")(!(accountExpires=0)))");
 		this.totalMembers = listMember.size() + listMemberDisabled.size() + listMemberAccountExpires.size();
 	}
@@ -64,7 +66,10 @@ public class AD_D21 extends AbstractRule {
 	protected void actions() {
 		GregorianCalendar cal = new GregorianCalendar();
 		cal.add(Calendar.YEAR, -5);
-		if(this.totalMembers == 0) {
+		if(this.listGroup.size()!= 0 ){
+			((AbstractActiveDirWrapper) dataNativeSystem).insertInto(this.groupName, false, "");
+		}
+		else if(this.totalMembers == 0) {
 			((AbstractActiveDirWrapper) dataNativeSystem).insertInto(this.groupName, true, "No Members");
 		}
 		else if((((double) this.listMemberDisabled.size()+(double) this.listMemberAccountExpires.size())/ (double) this.totalMembers) >= 0.7) {

@@ -21,7 +21,7 @@ public class AD_G extends AbstractRule {
 		SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy 00:00:00");
 		SimpleDateFormat sdf2 = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
 		try {
-			this.da = sdf2.parse(sdf.format(System.currentTimeMillis()+ 1000*60*60*24)).getTime();
+			this.da = sdf2.parse(sdf.format(System.currentTimeMillis()+ 1000*60*60*24L)).getTime();
 		} catch (ParseException e) {
 			e.printStackTrace();
 		}
@@ -57,7 +57,7 @@ public class AD_G extends AbstractRule {
 			createRule(new AD_G(this.da));
 		}
 		else{
-			createRule(new AD_G(this.da + 1000*60*60*24*7));
+			createRule(new AD_G(this.da + 1000*60*60*24*7L));
 			createRule(new AD_Group());
 		}
 		return true;

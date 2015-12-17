@@ -74,34 +74,34 @@ public class AD_M21 extends AbstractRule {
 	protected void actions() {
 		Long today = System.currentTimeMillis();
 		Long pwd = calendar.getTimeInMillis();
-		if((pwd + 1000*60*60*24*14) > today ){
+		if((pwd + 1000*60*60*24*14L) > today ){
 			String s = makeText(this.displayName ,30);
 			if(this.m !=1){
 				System.out.println("\t\t"+this.mail+" moins de 30 jours");
 			 	((AbstractActiveDirWrapper) dataNativeSystem).insertInto("Password", this.dn, "1");
 				//new Mail(this.mail, "Password Expiry Notification - First Reminder", s).send();
-				//new Mail("siu.ProactiveGroup@uni.lu", "Password Expiry Notification - First Reminder", s).send();
+				new Mail("siu.ProactiveGroup@uni.lu", "Password Expiry Notification - First Reminder", s).send();
 			}	
 		}
-		else if ((pwd + 1000*60*60*24*26) > today){
+		else if ((pwd + 1000*60*60*24*26L) > today){
 			String s = makeText(this.displayName ,15);
 			if(this.m != 2){
 				System.out.println("\t\t"+this.mail+" moins de 15 jours");
 				((AbstractActiveDirWrapper) dataNativeSystem).insertInto("Password", this.dn, "2");
 				//new Mail(this.mail, "Password Expiry Notification - Second Reminder", s).send();
-				//new Mail("siu.ProactiveGroup@uni.lu", "Password Expiry Notification - Second Reminder", s).send();
+				new Mail("siu.ProactiveGroup@uni.lu", "Password Expiry Notification - Second Reminder", s).send();
 			 }
 		}
-		else if ((pwd + 1000*60*60*24*29) > today){
+		else if ((pwd + 1000*60*60*24*29L) > today){
 			String s = makeText(this.displayName ,3);
 			if(this.m != 3){
 				System.out.println("\t\t"+this.mail+" moins de 3 jours");
 				((AbstractActiveDirWrapper) dataNativeSystem).insertInto("Password", this.dn, "3");
 				//new Mail(this.mail, "Password Expiry Notification - Second Reminder", s).send();
-				//new Mail("siu.ProactiveGroup@uni.lu", "Password Expiry Notification - Third Reminder", s).send();
+				new Mail("siu.ProactiveGroup@uni.lu", "Password Expiry Notification - Third Reminder", s).send();
 			}
 		}
-		else if ((pwd + 1000*60*60*24*30) > today){
+		else if ((pwd + 1000*60*60*24*30L) > today){
 			String s = makeText(this.displayName ,1);
 			try {
 				this.manager = this.user.getAttributes().get("manager").get().toString();
@@ -112,19 +112,19 @@ public class AD_M21 extends AbstractRule {
 			}
 			try {
 				this.location = this.user.getAttributes().get("l").get().toString();
-			} catch (NamingException e) {
+			} catch (Exception e) {
 				this.location="";
 			}
 			this.location= this.getSIULoc(this.location);
 			if(this.m != 4){
 				System.out.println("\t\t"+this.mail+" moins de 1 jours");
 				((AbstractActiveDirWrapper) dataNativeSystem).insertInto("Password", this.dn, "4");
-				//new Mail("siu.ProactiveGroup@uni.lu", "Password Expiry Notification - Fourth Reminder", s).send();
+				new Mail("siu.ProactiveGroup@uni.lu", "Password Expiry Notification - Fourth Reminder", s).send();
 				//new Mail(this.mail, "Password Expiry Notification - Fourth Reminder", s).send(this.manager,this.location);
 			}
 		}
-		else if (pwd + 1000*60*60*24*60 < today){
-			((AbstractActiveDirWrapper) dataNativeSystem).insertInto("Password30", this.dn, null, null);
+		else if (pwd + 1000*60*60*24*60L < today){
+			((AbstractActiveDirWrapper) dataNativeSystem).insertInto("Password30", this.dn, null, "expired since "+((today -(pwd+1000*60*60*24*30L))/(1000*60*60*24L))+" days");
 		}
 
 	}

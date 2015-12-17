@@ -1132,7 +1132,7 @@ public final class MySQLOperations extends GenericDataAccessOperations {
 	}
 	
 	public ResultSet getExpiredPassword(final int conn){
-		String q = "SELECT name FROM Password30 WHERE name <> 'Finish'";
+		String q = "SELECT name, role FROM Password30 WHERE name <> 'Finish' ORDER BY name DESC";
 		return getArrayFromSelect(conn, q);
 	}
 

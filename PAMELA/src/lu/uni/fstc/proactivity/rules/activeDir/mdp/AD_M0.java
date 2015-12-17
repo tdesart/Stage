@@ -18,7 +18,7 @@ public class AD_M0 extends AbstractRule {
 
 	@Override
 	protected void dataAcquisition() {
-		this.listUser = ((AbstractActiveDirWrapper) dataNativeSystem).search("OU=UNI-Users,DC=uni,DC=lux","(&(objectClass=person)(mail=*)(pwdLastSet=*))");
+		this.listUser = ((AbstractActiveDirWrapper) dataNativeSystem).search("OU=UNI-Users,DC=uni,DC=lux","(&(objectClass=person)(mail=*)(pwdLastSet=*)(!(pwdLastSet=0)))");
 		System.out.println(this.listUser.size());
 
 	}
@@ -39,7 +39,7 @@ public class AD_M0 extends AbstractRule {
 	protected void actions() {
 		((AbstractActiveDirWrapper) dataNativeSystem).createTable("Password30");
 		((AbstractActiveDirWrapper) dataNativeSystem).createTable("Password");
-
+		((AbstractActiveDirWrapper) dataNativeSystem).createTable("password_historic");
 	}
 
 	@Override
